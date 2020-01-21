@@ -48,7 +48,7 @@ class Feedback extends Component() {
 }
 
 const mapStateToProps = ({ game: { scorePoints, numberOfHits, name } }) => ({
-  scorePoints, numberOfHits, name
+  scorePoints, numberOfHits, name,
 });
 
 export default connect(mapStateToProps)(Feedback);
