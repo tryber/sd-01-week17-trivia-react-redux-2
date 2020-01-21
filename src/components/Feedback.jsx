@@ -47,8 +47,8 @@ class Feedback extends Component() {
   }
 }
 
-const mapStateToProps = ({ game: { scorePoints, numberOfHits, name } }) => ({
-  scorePoints, numberOfHits, name,
+const mapStateToProps = ({ ReducerHome: { name }, ReducerGame: { scorePoints, numberOfHits } }) => ({
+  name, scorePoints, numberOfHits,
 });
 
 export default connect(mapStateToProps)(Feedback);
