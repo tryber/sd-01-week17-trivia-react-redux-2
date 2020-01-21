@@ -49,7 +49,7 @@ class Feedback extends Component() {
 
 const mapStateToProps = ({
   ReducerHome: { name },
-  ReducerGame: { scorePoints, numberOfHits }
+  ReducerGame: { scorePoints, numberOfHits },
 }) => ({
   name, scorePoints, numberOfHits,
 });
