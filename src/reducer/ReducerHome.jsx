@@ -1,4 +1,5 @@
-import { CHANGENAME, CHANGEEMAIL } from '../actions/ActionHome';
+import { CHANGENAME, CHANGEEMAIL, CHANGETOKEN } from '../actions/ActionHome';
+
 
 const initialState = {
   name: '',
@@ -12,9 +13,30 @@ const ReducerHome = (state = initialState, action) => {
       return { ...state, name: action.name };
     case CHANGEEMAIL:
       return { ...state, email: action.email };
+      case CHANGETOKEN:
+      return { ...state, token: action.token };
     default:
       return state;
   }
 };
 
 export default ReducerHome;
+
+
+// case REQUESTTOKEN:
+//       return {
+//         ...state,
+//         isFetching: true,
+//       };
+//     case RECEIVETOKENSUCESS:
+//       return {
+//         ...state,
+//         isFetching: false,
+//         data: true,
+//       };
+//     case RECEIVETOKENFALIURE:
+//       return {
+//         ...state,
+//         isFetching: false,
+//         error: true,
+//       };
