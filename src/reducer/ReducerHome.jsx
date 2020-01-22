@@ -21,22 +21,3 @@ const ReducerHome = (state = initialState, action) => {
 };
 
 export default ReducerHome;
-
-
-// case REQUESTTOKEN:
-//       return {
-//         ...state,
-//         isFetching: true,
-//       };
-//     case RECEIVETOKENSUCESS:
-//       return {
-//         ...state,
-//         isFetching: false,
-//         data: true,
-//       };
-//     case RECEIVETOKENFALIURE:
-//       return {
-//         ...state,
-//         isFetching: false,
-//         error: true,
-//       };

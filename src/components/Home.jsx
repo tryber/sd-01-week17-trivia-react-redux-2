@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import md5 from 'md5-hash';
 
-import Store from '../Store/Store';
-
 import { changeName, changeEmail, changeToken } from '../actions/ActionHome';
 
 class Home extends React.Component {
@@ -28,7 +26,6 @@ class Home extends React.Component {
   }
 
   render() {
-    console.log(Store.getState())
     return (
       <div className="App">
         <h1>Home</h1>
@@ -69,6 +66,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Home.propTypes = {
+  email: PropTypes.string.isRequired,
   SubmitPlayerInformation: PropTypes.func.isRequired,
 };
 
