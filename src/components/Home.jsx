@@ -54,7 +54,7 @@ const mapDispatchToProps = (dispatch) => ({
   SubmitPlayerInformation: (callActions, value) => dispatch(callActions(value)),
 });
 
-Home.propType = {
+Home.propTypes = {
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   token: PropTypes.string.isRequired,
