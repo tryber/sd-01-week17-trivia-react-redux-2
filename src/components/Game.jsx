@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Store from '../Store/Store';
-import DatabaseAPI from '../services/RequestAPI';
+import  fetchData from '../actions/ActionGame';
 
 class Game extends Component {
   componentDidMount() {
-    DatabaseAPI().then((resolve) => console.log(resolve));
+    this.props.getData();
   }
 
   render() {
@@ -27,10 +27,13 @@ const mapStateToProps = ({
   ReducerHome: { name, token },
 }) => ({ name, token });
 
+const mapDispatchToProps = (dispatch) => ({
+  getData: () => dispatch(fetchData()),
+});
+
 Game.propTypes = {
   name: PropTypes.string.isRequired,
   token: PropTypes.string.isRequired,
 };
 
-
-export default connect(mapStateToProps)(Game);
+export default connect(mapStateToProps, mapDispatchToProps)(Game);
