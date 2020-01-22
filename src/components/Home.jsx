@@ -30,7 +30,8 @@ class Home extends React.Component {
           />
         </label>
         <label htmlFor="player-email">
-          <input data-testeid="input-gravatar-email"
+          <input
+            data-testeid="input-gravatar-email"
             type="email"
             id="player-email"
             placeholder="Tap Your Email"
@@ -45,13 +46,6 @@ class Home extends React.Component {
   }
 }
 
-Home.propType = {
-  name: PropType.string.isRequired,
-  email: PropType.string.isRequired,
-  token: PropType.string.isRequired,
-  SubmitPlayerInformation: PropType.func.isRequired,
-};
-
 const mapStateToProps = ({
   ReducerHome: { name, email, token },
 }) => ({ name, email, token });
@@ -59,5 +53,12 @@ const mapStateToProps = ({
 const mapDispatchToProps = (dispatch) => ({
   SubmitPlayerInformation: (callActions, value) => dispatch(callActions(value)),
 });
+
+Home.propType = {
+  name: PropType.string.isRequired,
+  email: PropType.string.isRequired,
+  token: PropType.string.isRequired,
+  SubmitPlayerInformation: PropType.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
