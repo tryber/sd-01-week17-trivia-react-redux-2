@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Store from '../Store/Store';
-import  fetchData from '../actions/ActionGame';
+import fetchData from '../actions/ActionGame';
 
 class Game extends Component {
   componentDidMount() {
@@ -34,6 +34,7 @@ const mapDispatchToProps = (dispatch) => ({
 Game.propTypes = {
   name: PropTypes.string.isRequired,
   token: PropTypes.string.isRequired,
+  getData: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
