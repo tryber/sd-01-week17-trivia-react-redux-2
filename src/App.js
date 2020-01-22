@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import logo from './img/trivia.png';
 import Trivia from './components/Trivia';
 import Home from './components/Home';
 import Settings from './components/Settings';
