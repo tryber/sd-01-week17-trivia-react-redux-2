@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Header from './Header';
 
 class Feedback extends Component {
@@ -48,7 +49,7 @@ class Feedback extends Component {
   }
 }
 
-Header.propTypes = {
+Feedback.propTypes = {
   name: PropTypes.string.isRequired,
   scorePoints: PropTypes.number.isRequired,
   numberOfHits: PropTypes.number.isRequired,
