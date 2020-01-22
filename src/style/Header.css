@@ -3,7 +3,7 @@
   background-color: grey;
   color: black;
   display: flex;
-  height: 60px;
+  height: 70px;
   justify-content: space-between;
   top: 0;
   width: 100vw;
@@ -12,11 +12,19 @@
 .settings-icon {
   border-radius: 15px;
   height: 30px;
+  margin: 10px;
   width: 30px;
 }
 
 .player-image {
-  border-radius: 20px;
-  height: 40px;
-  width: 40px;
+  border-radius: 30px;
+  height: 60px;
+  margin: 10px;
+  width: 60px;
+}
+
+.center-bar {
+  align-items: center;
+  display: flex;
+  margin-right: 20px;
 }

@@ -12,13 +12,13 @@ const settingButton = () => (
   </Link>
 );
 
-const Header = ({ name, image, scorePoints, settings }) => (
+const Header = ({ name, token, scorePoints, settings }) => (
   <div className="header-container">
-    <div>
-      <img src={image} alt="Game Player" className="player-image" />
+    <div className="center-bar">
+      <img src={token} alt="Game Player" className="player-image" />
       Jogador: {name}
     </div>
-    <div>
+    <div className="center-bar">
       Pontos: {scorePoints}
       {settings && settingButton()}
     </div>
@@ -27,7 +27,7 @@ const Header = ({ name, image, scorePoints, settings }) => (
 
 Header.propTypes = {
   name: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
+  token: PropTypes.string.isRequired,
   scorePoints: PropTypes.number.isRequired,
   settings: PropTypes.bool,
 };
@@ -37,8 +37,8 @@ Header.defaultProps = {
 };
 
 const mapStateToProps = ({
-  ReducerHome: { name, image },
+  ReducerHome: { name, token },
   ReducerGame: { scorePoints },
-}) => ({ name, image, scorePoints });
+}) => ({ name, token, scorePoints });
 
 export default connect(mapStateToProps)(Header);
