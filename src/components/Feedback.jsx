@@ -26,7 +26,7 @@ class Feedback extends Component {
     const { scorePoints, numberOfHits, name } = this.props;
     return (
       <div>
-        <Header settings={true} />
+        <Header settings />
         <h3 data-testid="feedback-text">{scorePoints && numberOfHits && this.verifyScore()}</h3>
         <div>
           <p data-testid="feedback-total-question">Você acertou {numberOfHits} questões!</p>
@@ -47,6 +47,12 @@ class Feedback extends Component {
     );
   }
 }
+
+Header.propTypes = {
+  name: PropTypes.string.isRequired,
+  scorePoints: PropTypes.number.isRequired,
+  numberOfHits: PropTypes.number.isRequired,
+};
 
 const mapStateToProps = ({
   ReducerHome: { name },
