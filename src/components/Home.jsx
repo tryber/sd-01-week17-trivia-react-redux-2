@@ -18,23 +18,26 @@ class Home extends React.Component {
     return (
       <div className="App">
         <h1>Home</h1>
-        <Link to={'/settings'}>
+        <Link to="/settings">
           <button data-testeid="config-button" type="button">Settings</button>
         </Link>
         <label htmlFor="player-name">
-          <input data-testeid="input-player-name"
+          <input
+            data-testeid="input-player-name"
             type="text" id="player-name"
             placeholder="Tap Your Name"
-            onChange={(e) => this.handleOnChange(e, changeName)} />
+            onChange={(e) => this.handleOnChange(e, changeName)}
+          />
         </label>
         <label htmlFor="player-email">
           <input data-testeid="input-gravatar-email"
             type="email"
             id="player-email"
             placeholder="Tap Your Email"
-            onChange={(e) => this.handleOnChange(e, changeEmail)} />
+            onChange={(e) => this.handleOnChange(e, changeEmail)}
+          />
         </label>
-        <Link to='/game'>
+        <Link to="/game">
           <button type="button">Play</button>
         </Link>
       </div>
@@ -44,8 +47,9 @@ class Home extends React.Component {
 
 Home.propType = {
   name: PropType.string.isRequired,
-  email: propType.string.isRequired,
-  token: propType.string.isRequired,
+  email: PropType.string.isRequired,
+  token: PropType.string.isRequired,
+  SubmitPlayerInformation: PropType.func.isRequired,
 };
 
 const mapStateToProps = ({
