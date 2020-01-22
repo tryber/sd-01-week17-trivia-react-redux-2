@@ -32,5 +32,3 @@ const ReducerGame = (state = initialState, action) => {
 };
 
 export default ReducerGame;
-
-
