@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Header from './Header';
 
-class Feedback extends Component() {
+class Feedback extends Component {
   constructor(props) {
     super(props);
     this.verifyScore = this.verifyScore.bind(this);
@@ -25,18 +26,18 @@ class Feedback extends Component() {
     const { scorePoints, numberOfHits, name } = this.props;
     return (
       <div>
-        {/* <Header /> */}
+        <Header settings={true} />
         <h3 data-testid="feedback-text">{scorePoints && numberOfHits && this.verifyScore()}</h3>
         <div>
           <p data-testid="feedback-total-question">Você acertou {numberOfHits} questões!</p>
           <p data-testid="feedback-total-scorePoints">Um total de {scorePoints} pontos</p>
         </div>
-        <Link to="/Ranking">
+        <Link to="/ranking">
           <button type="button">
             Ver Ranking
           </button>
         </Link>
-        <Link to="/Home">
+        <Link to="/home">
           <button type="button">
             Jogar Novamente
           </button>
