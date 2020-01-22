@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './trivia.png';
+import logo from './img/trivia.png';
 import './App.css';
 
 export default function App() {
