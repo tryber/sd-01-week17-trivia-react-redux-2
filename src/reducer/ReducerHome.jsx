@@ -4,7 +4,7 @@ const initialState = {
   name: '',
   email: '',
   token: '',
-}
+};
 
 const ReducerHome = (state = initialState, action) => {
   switch (action.type) {
@@ -15,6 +15,6 @@ const ReducerHome = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};
 
 export default ReducerHome;
