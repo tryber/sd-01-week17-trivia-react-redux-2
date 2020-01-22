@@ -55,9 +55,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Home.propTypes = {
-  name: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  token: PropTypes.string.isRequired,
   SubmitPlayerInformation: PropTypes.func.isRequired,
 };
 
