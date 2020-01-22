@@ -2,18 +2,29 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import md5 from 'md5-hash';
 
-import { changeName, changeEmail } from '../actions/ActionHome';
+import { changeName, changeEmail, changeToken } from '../actions/ActionHome';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.handleOnChange = this.handleOnChange.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleOnChange(e, callActions) {
+  handleChange(e, callActions) {
     this.props.SubmitPlayerInformation(callActions, e.target.value);
   }
+
+  handleClick() {
+    const { email } = this.props;
+    const hash = md5(email.toLowerCase());
+    const src = `https://www.gravatar.com/avatar/${hash}`;
+    this.props.SubmitPlayerInformation(changeToken, src);
+  }
+
   render() {
     return (
       <div className="App">
@@ -26,7 +37,7 @@ class Home extends React.Component {
             data-testeid="input-player-name"
             type="text" id="player-name"
             placeholder="Tap Your Name"
-            onChange={(e) => this.handleOnChange(e, changeName)}
+            onChange={(e) => this.handleChange(e, changeName)}
           />
         </label>
         <label htmlFor="player-email">
@@ -35,11 +46,11 @@ class Home extends React.Component {
             type="email"
             id="player-email"
             placeholder="Tap Your Email"
-            onChange={(e) => this.handleOnChange(e, changeEmail)}
+            onChange={(e) => this.handleChange(e, changeEmail)}
           />
         </label>
         <Link to="/game">
-          <button type="button">Play</button>
+          <button type="button" onClick={() => this.handleClick()}>Play</button>
         </Link>
       </div>
     );
@@ -47,14 +58,15 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = ({
-  ReducerHome: { name, email, token },
-}) => ({ name, email, token });
+  ReducerHome: { email },
+}) => ({ email });
 
 const mapDispatchToProps = (dispatch) => ({
   SubmitPlayerInformation: (callActions, value) => dispatch(callActions(value)),
 });
 
 Home.propTypes = {
+  email: PropTypes.string.isRequired,
   SubmitPlayerInformation: PropTypes.func.isRequired,
 };
 
