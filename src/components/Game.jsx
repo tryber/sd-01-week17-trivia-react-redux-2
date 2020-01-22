@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import Store from '../Store/Store';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import { DatabaseAPI } from '../services/RequestAPI'
+import Store from '../Store/Store';
+import DatabaseAPI from '../services/RequestAPI';
 
 class Game extends Component {
   componentDidMount() {
-      DatabaseAPI().then((resolve) => console.log(resolve))
+    DatabaseAPI().then((resolve) => console.log(resolve));
   }
-  
+
   render() {
-    console.log(Store.getState())
+    console.log(Store.getState());
     const { name, token } = this.props;
     return (
       <div className="App">

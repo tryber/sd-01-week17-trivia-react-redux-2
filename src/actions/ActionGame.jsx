@@ -1,4 +1,4 @@
-import { DatabaseAPI } from '../services/RequestAPI';
+import DatabaseAPI from '../services/RequestAPI';
 
 export const REQUESTTOKEN = 'REQUESTTOKEN';
 export const RECEIVETOKENSUCESS = 'RECEIVETOKENSUCESS';
