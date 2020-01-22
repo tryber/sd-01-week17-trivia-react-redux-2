@@ -1,20 +1,20 @@
 import DatabaseAPI from '../services/RequestAPI';
 
-export const REQUESTTOKEN = 'REQUESTTOKEN';
-export const RECEIVETOKENSUCESS = 'RECEIVETOKENSUCESS';
-export const RECEIVETOKENFALIURE = 'RECEIVETOKENFALIURE';
+export const REQUEST_TOKEN = 'REQUEST_TOKEN';
+export const RECEIVE_TOKEN_SUCCESS = 'RECEIVE_TOKEN_SUCESS';
+export const RECEIVE_TOKEN_FALIURE = 'RECEIVE_TOKEN_FALIURE';
 
 const requestToken = () => ({
-  type: REQUESTTOKEN,
+  type: REQUEST_TOKEN,
 });
 
 const receiveTokenSucess = (data) => ({
-  type: RECEIVETOKENSUCESS,
+  type: RECEIVE_TOKEN_SUCCESS,
   data,
 });
 
 const receiveTokenFailure = (error) => ({
-  type: RECEIVETOKENFALIURE,
+  type: RECEIVE_TOKEN_FALIURE,
   error,
 });
 

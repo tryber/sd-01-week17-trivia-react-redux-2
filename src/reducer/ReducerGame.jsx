@@ -1,4 +1,4 @@
-import { REQUESTTOKEN, RECEIVETOKENSUCESS, RECEIVETOKENFALIURE } from '../actions/ActionGame';
+import { REQUEST_TOKEN, RECEIVE_TOKEN_SUCCESS, RECEIVE_TOKEN_FALIURE } from '../actions/ActionGame';
 
 
 const initialState = {
@@ -9,18 +9,18 @@ const initialState = {
 
 const ReducerGame = (state = initialState, action) => {
   switch (action.type) {
-    case REQUESTTOKEN:
+    case REQUEST_TOKEN:
       return {
         ...state,
         isFetching: true,
       };
-    case RECEIVETOKENSUCESS:
+    case RECEIVE_TOKEN_SUCCESS:
       return {
         ...state,
-        isFetching: 'andy',
+        isFetching: false,
         data: action.data,
       };
-    case RECEIVETOKENFALIURE:
+    case RECEIVE_TOKEN_FALIURE:
       return {
         ...state,
         isFetching: false,

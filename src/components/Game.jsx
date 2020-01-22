@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import Header from './Header';
 import Store from '../Store/Store';
 import DatabaseAPI from '../services/RequestAPI';
 
@@ -15,6 +16,7 @@ class Game extends Component {
     const { name, token } = this.props;
     return (
       <div className="App">
+        <Header />
         <h1>Olar {name}</h1>
         <img src={token} alt="profile icon" />
         <h2>Score: 0</h2>
