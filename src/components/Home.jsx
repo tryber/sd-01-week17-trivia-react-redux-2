@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropType from 'prop-types';
+import PropTypes from 'prop-types';
 
 import { changeName, changeEmail } from '../actions/ActionHome';
 
@@ -55,10 +55,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Home.propType = {
-  name: PropType.string.isRequired,
-  email: PropType.string.isRequired,
-  token: PropType.string.isRequired,
-  SubmitPlayerInformation: PropType.func.isRequired,
+  name: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  token: PropTypes.string.isRequired,
+  SubmitPlayerInformation: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
