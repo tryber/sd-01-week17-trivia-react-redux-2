@@ -43,7 +43,7 @@ function Settings({ changeSettings }) {
         </select>
       </div>
       <div className="select">
-        <select name="difficulty" onChange={(e) => handleChange(changeDifficulty, e, changeSettings)}>
+        <select name="difficult" onChange={(e) => handleChange(changeDifficulty, e, changeSettings)}>
           <option value="any">Any Difficulty</option>
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
