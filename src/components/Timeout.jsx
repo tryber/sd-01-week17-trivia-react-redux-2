@@ -7,27 +7,27 @@ class Clock extends Component {
       currentCount: 30,
       getCurrentTime: 0,
       isPaused: true,
-    }
+    };
     this.timer = this.timer.bind(this);
     this.getTimeOut = this.getTimeOut.bind(this);
+  }
+
+  getTimeOut() {
+    this.setState({
+      isPaused: false,
+      getCurrentTime: this.state.currentCount,
+    });
   }
 
   timer() {
     if (this.state.isPaused) {
       this.setState({
-        currentCount: this.state.currentCount - 1
-      })
+        currentCount: this.state.currentCount - 1,
+      });
     }
     if (this.state.currentCount < 1) {
       clearInterval(this.intervalId);
     }
-  }
-  
-  getTimeOut() {
-    this.setState({
-      isPaused: false,
-      getCurrentTime: this.state.currentCount
-    });
   }
 
   componentDidMount() {
