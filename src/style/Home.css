@@ -1,0 +1,83 @@
+@import url('https: //fonts.googleapis.com/css?family=Arvo&display=swap');
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-header {
+  align-self: center;
+  display: flex;
+  margin-top: 120px;
+  padding: 0 20%;
+  width: 800px;
+}
+
+.home-header h1 {
+  width: 66%;
+}
+
+.home-header a {
+  margin-top: 20px;
+}
+
+.home-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-label {
+  display: block;
+  font-family: 'Arvo', serif;
+  font-size: 1.2rem;
+  margin-left: 2rem;
+  margin-top: 0.4rem;
+  transition: all 0.3s;
+}
+
+.home-input {
+  background-color: lightgrey;
+  border: none;
+  border-bottom: 0.3rem solid transparent;
+  border-radius: 0.2rem;
+  display: block;
+  font-size: 1.2rem;
+  margin-top: 5px;
+  padding: 1.2rem 2rem;
+  transition: all 0.3s;
+  width: 300px;
+}
+
+.home-input:placeholder-shown + .home-label {
+  -webkit-transform: translateY(-4rem);
+  opacity: 0;
+  transform: translateY(-4rem);
+  visibility: hidden;
+}
+
+.settings-big-icon {
+  height: 50px;
+  margin-bottom: 15px;
+  width: 50px;
+}
+
+.play-game {
+  background: lightgreen;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+  margin-top: 10px;
+  padding: 1rem 1.25rem;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.play-game:hover {
+  background: #5ce473;
+}

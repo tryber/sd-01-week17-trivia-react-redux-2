@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Arvo&display=swap');
+
 .header-container {
   align-items: center;
-  background-color: grey;
+  background-color: rgb(175, 175, 175);
   color: black;
   display: flex;
+  font-family: 'Arvo', serif;
   height: 70px;
   justify-content: space-between;
   top: 0;
@@ -10,9 +13,9 @@
 }
 
 .settings-icon {
-  border-radius: 15px;
   height: 30px;
   margin: 10px;
+  margin-left: 30px;
   width: 30px;
 }
 
