@@ -1,30 +1,31 @@
-import DatabaseAPI from '../services/RequestAPI';
+import TokenAPI from '../services/RequestAPI';
 
-export const REQUESTTOKEN = 'REQUESTTOKEN';
-export const RECEIVETOKENSUCESS = 'RECEIVETOKENSUCESS';
-export const RECEIVETOKENFALIURE = 'RECEIVETOKENFALIURE';
+export const REQUEST_DATA = 'REQUEST_DATA';
+export const RECEIVE_DATA_SUCCESS = 'RECEIVE_DATA_SUCCESS';
+export const RECEIVE_DATA_FAILURE = 'RECEIVE_DATA_FAILURE';
 
-const requestToken = () => ({
-  type: REQUESTTOKEN,
+const requestData = () => ({
+  type: REQUEST_DATA,
 });
 
-const receiveTokenSucess = (data) => ({
-  type: RECEIVETOKENSUCESS,
+const receiveDataSuccess = (data) => ({
+  type: RECEIVE_DATA_SUCCESS,
   data,
 });
 
-const receiveTokenFailure = (error) => ({
-  type: RECEIVETOKENFALIURE,
+const receiveDataFailure = (error) => ({
+  type: RECEIVE_DATA_FAILURE,
   error,
 });
 
 function fetchData() {
   return (dispatch) => {
-    dispatch(requestToken());
-    return DatabaseAPI()
+    dispatch(requestData());
+
+    return TokenAPI()
       .then(
-        (data) => dispatch(receiveTokenSucess(data)),
-        (error) => dispatch(receiveTokenFailure(error.message)),
+        (data) => dispatch(receiveDataSuccess(data.results)),
+        (error) => dispatch(receiveDataFailure(error.message)),
       );
   };
 }
