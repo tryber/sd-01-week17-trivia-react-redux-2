@@ -17,7 +17,7 @@ const ReducerGame = (state = initialState, action) => {
     case RECEIVETOKENSUCESS:
       return {
         ...state,
-        isFetching: 'andy',
+        isFetching: false,
         data: action.data,
       };
     case RECEIVETOKENFALIURE:

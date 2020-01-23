@@ -15,7 +15,7 @@ class Game extends Component {
     const { name, token } = this.props;
     return (
       <div className="App">
-        <h1>Olar {name}</h1>
+        <h1>Olá {name}</h1>
         <img src={token} alt="profile icon" />
         <h2>Score: 0</h2>
       </div>
@@ -31,6 +31,5 @@ Game.propTypes = {
   name: PropTypes.string.isRequired,
   token: PropTypes.string.isRequired,
 };
-
 
 export default connect(mapStateToProps)(Game);
