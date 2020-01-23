@@ -1,74 +1,72 @@
 .settings-container {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
 }
 
-h1 {
-  margin: 0 2em 0.25em;
+.title {
+	margin: 0 2em 0.25em;
 }
 
 select {
-  background: grey;
-  background-image: none;
-  border: 0;
-  color: #fff;
-  cursor: pointer;
-  flex: 1;
-  padding: 0 .5em;
+	background: grey;
+	background-image: none;
+	border: 0;
+	color: white;
+	cursor: pointer;
+	flex: 1;
+	padding: 0 0.5em;
 }
 
 select::-ms-expand {
-  display: none;
+	display: none;
 }
 
 .select {
-  background: grey;
-  border-radius: .25em;
-  display: flex;
-  height: 3em;
-  line-height: 3;
-  margin: 10px;
-  overflow: hidden;
-  position: relative;
-  width: 20em;
+	background: grey;
+	border-radius: 0.25em;
+	display: flex;
+	height: 3em;
+	line-height: 3;
+	margin: 10px;
+	overflow: hidden;
+	position: relative;
+	width: 20em;
 }
 
-.select::after {
-  background: darkgray;
-  content: '\25BC';
-  cursor: pointer;
-  padding: 0 1em;
-  pointer-events: none;
-  position: absolute;
-  right: 0;
-  top: 0;
-  transition: .25s all ease;
+.select:after {
+	background: darkgray;
+	content: '\25BC';
+	cursor: pointer;
+	padding: 0 1em;
+	pointer-events: none;
+	position: absolute;
+	right: 0;
+	top: 0;
 }
 
-.select:hover::after {
-  color: white;
+.select:hover:after {
+	color: white;
 }
 
 .save-settings {
-  background: lightgrey;
-  border: 0;
-  cursor: pointer;
-  display: inline-block;
-  font-size: inherit;
-  font-family: inherit;
-  font-weight: 500;
-  margin-top: 10px;
-  outline: none;
-  padding: 1rem 1.25rem;
-  position: relative;
-  text-decoration: none;
-  text-transform: uppercase;
-  vertical-align: middle;
+	background: lightgrey;
+	border: 0;
+	cursor: pointer;
+	display: inline-block;
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: 500;
+	margin-top: 10px;
+	padding: 1rem 1.25rem;
+	position: relative;
+	text-decoration: none;
+	text-transform: uppercase;
+	vertical-align: middle;
 }
 
 .save-settings:hover {
-  background: darkgray;
+	background: darkgray;
 }

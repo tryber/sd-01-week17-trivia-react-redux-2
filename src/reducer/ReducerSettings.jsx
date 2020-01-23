@@ -12,17 +12,17 @@ const ReducerSettings = (state = INITIAL_SETTINGS_STATE, action) => {
       return {
         ...state,
         category: action.questionCategory,
-    };
+      };
     case CHANGE_TYPE:
       return {
         ...state,
         type: action.questionType,
-    };
+      };
     case CHANGE_DIFFICULTY:
       return {
         ...state,
         difficulty: action.questionDifficulty,
-    };
+      };
     default:
       return state;
   }

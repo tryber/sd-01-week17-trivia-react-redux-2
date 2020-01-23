@@ -5,8 +5,8 @@ const DatabaseAPI = async (token) => {
 
 const TokenAPI = async () => {
   const response = await fetch('https://opentdb.com/api_token.php?command=request');
-  const data = response.json();
-  return data.then((data) => DatabaseAPI(data.token));
+  const result = response.json();
+  return result.then((data) => DatabaseAPI(data.token));
 };
 
 export default TokenAPI;

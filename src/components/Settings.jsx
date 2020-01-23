@@ -1,8 +1,8 @@
 import React from 'react';
-import { changeCategory, changeDifficulty, changeType } from  '../actions/ActionSettings';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { changeCategory, changeDifficulty, changeType } from '../actions/ActionSettings';
 import '../style/Settings.css';
 
 function handleChange(callActions, e, changeSettings) {
@@ -12,9 +12,9 @@ function handleChange(callActions, e, changeSettings) {
 function Settings({ changeSettings }) {
   return (
     <div className="settings-container">
-      <h1>Configurações</h1>
+      <h1 className="title">Configurações</h1>
       <div className="select">
-        <select name="trivia_category" onChange={(e) => handleChange(changeCategory, e, changeSettings)}>
+        <select name="category" onChange={(e) => handleChange(changeCategory, e, changeSettings)}>
           <option value="any">Any Category</option>
           <option value="9">General Knowledge</option>
           <option value="10">Entertainment: Books</option>
@@ -43,7 +43,7 @@ function Settings({ changeSettings }) {
         </select>
       </div>
       <div className="select">
-        <select name="trivia_difficulty" onChange={(e) => handleChange(changeDifficulty, e, changeSettings)}>
+        <select name="difficulty" onChange={(e) => handleChange(changeDifficulty, e, changeSettings)}>
           <option value="any">Any Difficulty</option>
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
@@ -51,7 +51,7 @@ function Settings({ changeSettings }) {
         </select>
       </div>
       <div className="select">
-        <select name="trivia_type" onChange={(e) => handleChange(changeType, e, changeSettings)}>
+        <select name="type" onChange={(e) => handleChange(changeType, e, changeSettings)}>
           <option value="any">Any Type</option>
           <option value="multiple">Multiple Choice</option>
           <option value="boolean">True / False</option>
@@ -66,7 +66,7 @@ function Settings({ changeSettings }) {
 
 Settings.propTypes = {
   changeSettings: PropTypes.func.isRequired,
-}
+};
 
 const mapDispatchToProps = (dispatch) => ({
   changeSettings: (callActions, value) => dispatch(callActions(value)),
