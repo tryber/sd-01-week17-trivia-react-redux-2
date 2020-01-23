@@ -7,8 +7,8 @@ import {
 
 const initialState = {
   isFetching: false,
-  data: null,
-  error: false,
+  data: '',
+  error: '',
 };
 
 const ReducerGame = (state = initialState, action) => {
@@ -28,7 +28,7 @@ const ReducerGame = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        error: true,
+        error: action.error,
       };
     default:
       return state;
