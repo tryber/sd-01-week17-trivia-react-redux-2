@@ -12,6 +12,14 @@ class Clock extends Component {
     this.getTimeOut = this.getTimeOut.bind(this);
   }
 
+  componentDidMount() {
+    this.intervalId = setInterval(this.timer, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
+
   getTimeOut() {
     this.setState({
       isPaused: false,
@@ -28,14 +36,6 @@ class Clock extends Component {
     if (this.state.currentCount < 1) {
       clearInterval(this.intervalId);
     }
-  }
-
-  componentDidMount() {
-    this.intervalId = setInterval(this.timer, 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.intervalId);
   }
 
   render() {
