@@ -13,9 +13,8 @@ const receiveDataSuccess = (data) => ({
   data,
 });
 
-const receiveDataFailure = (error) => ({
+const receiveDataFailure = () => ({
   type: RECEIVE_DATA_FAILURE,
-  error,
 });
 
 function fetchData() {
@@ -25,7 +24,7 @@ function fetchData() {
     return TokenAPI()
       .then(
         (data) => dispatch(receiveDataSuccess(data.results)),
-        (error) => dispatch(receiveDataFailure(error.message)),
+        () => dispatch(receiveDataFailure()),
       );
   };
 }
