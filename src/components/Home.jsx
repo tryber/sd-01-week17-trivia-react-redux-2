@@ -14,6 +14,7 @@ class Home extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.generateInputs = this.generateInputs.bind(this);
   }
 
   handleChange(e, callActions) {
@@ -27,11 +28,40 @@ class Home extends React.Component {
     this.props.SubmitPlayerInformation(changeToken, src);
   }
 
+  generateInputs() {
+    return (
+      <div className="home-container">
+        <input
+          data-testid="input-gravatar-email"
+          type="email"
+          id="player-email"
+          placeholder="Email do Gravatar"
+          className="home-input"
+          onChange={(e) => this.handleChange(e, changeEmail)}
+        />
+        <label htmlFor="player-email" className="home-label">
+          Email do Gravatar
+        </label>
+        <input
+          data-testid="input-player-name"
+          type="text"
+          id="player-name"
+          placeholder="Nome do Jogador"
+          className="home-input"
+          onChange={(e) => this.handleChange(e, changeName)}
+        />
+        <label htmlFor="player-name" className="home-label">
+          Nome do Jogador
+        </label>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className="App home-content">
         <div className="home-header">
-          <h1>Home</h1>
+          <h1 className="home-title">Home</h1>
           <Link to="/settings">
             <input
               type="image"
@@ -42,32 +72,11 @@ class Home extends React.Component {
             />
           </Link>
         </div>
-        <div className="home-container">
-          <input
-            data-testid="input-gravatar-email"
-            type="email"
-            id="player-email"
-            placeholder="Email do Gravatar"
-            className="home-input"
-            onChange={(e) => this.handleChange(e, changeEmail)}
-          />
-          <label htmlFor="player-email" className="home-label">
-            Email do Gravatar
-          </label>
-          <input
-            data-testid="input-player-name"
-            type="text"
-            id="player-name"
-            placeholder="Nome do Jogador"
-            className="home-input"
-            onChange={(e) => this.handleChange(e, changeName)}
-          />
-          <label htmlFor="player-name" className="home-label">
-            Nome do Jogador
-          </label>
-        </div>
+        {this.generateInputs()}
         <Link to="/game">
-          <button type="button" className="play-game" onClick={() => this.handleClick()}>Play</button>
+          <button type="button" className="play-game" onClick={() => this.handleClick()}>
+            Play
+          </button>
         </Link>
       </div>
     );

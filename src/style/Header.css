@@ -1,11 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Arvo&display=swap');
-
 .header-container {
   align-items: center;
   background-color: rgb(175, 175, 175);
   color: black;
   display: flex;
-  font-family: 'Arvo', serif;
+  font-family: "Arvo", serif;
   height: 70px;
   justify-content: space-between;
   top: 0;
