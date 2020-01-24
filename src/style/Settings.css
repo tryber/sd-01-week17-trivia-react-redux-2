@@ -11,12 +11,12 @@
 }
 
 select {
-  background: grey;
+  background: lightgrey;
   background-image: none;
   border: 0;
-  color: white;
   cursor: pointer;
   flex: 1;
+  font-size: 1rem;
   padding: 0 0.5em;
 }
 
@@ -25,9 +25,10 @@ select::-ms-expand {
 }
 
 .select {
-  background: grey;
+  background: lightgrey;
   border-radius: 0.25em;
   display: flex;
+  font-size: 1.2rem;
   height: 3em;
   line-height: 3;
   margin: 10px;
@@ -52,7 +53,7 @@ select::-ms-expand {
 }
 
 .save-settings {
-  background: lightgrey;
+  background: lightgreen;
   border: 0;
   cursor: pointer;
   display: inline-block;
@@ -68,5 +69,5 @@ select::-ms-expand {
 }
 
 .save-settings:hover {
-  background: darkgray;
+  background: #5ce473;
 }

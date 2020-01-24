@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import Store from '../Store/Store';
 import DatabaseAPI from '../services/RequestAPI';
+import Header from './Header';
 
 class Game extends Component {
   componentDidMount() {
@@ -15,7 +16,7 @@ class Game extends Component {
     const { name, token } = this.props;
     return (
       <div className="App">
-        <h1>Olá {name}</h1>
+        <h1>Olar {name}</h1>
         <img src={token} alt="profile icon" />
         <h2>Score: 0</h2>
       </div>

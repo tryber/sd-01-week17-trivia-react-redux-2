@@ -14,7 +14,11 @@ function Settings({ changeSettings }) {
     <div className="settings-container">
       <h1 className="title">Configurações</h1>
       <div className="select">
-        <select name="category" onChange={(e) => handleChange(changeCategory, e, changeSettings)}>
+        <select
+          name="trivia-category"
+          onChange={(e) => handleChange(changeCategory, e, changeSettings)}
+          data-testid="question-category-dropdown"
+        >
           <option value="any">Any Category</option>
           <option value="9">General Knowledge</option>
           <option value="10">Entertainment: Books</option>
@@ -43,7 +47,11 @@ function Settings({ changeSettings }) {
         </select>
       </div>
       <div className="select">
-        <select name="diff" onChange={(e) => handleChange(changeDifficulty, e, changeSettings)}>
+        <select
+          name="trivia-difficulty"
+          onChange={(e) => handleChange(changeDifficulty, e, changeSettings)}
+          data-testid="question-difficulty-dropdown"
+        >
           <option value="any">Any Difficulty</option>
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
@@ -51,7 +59,11 @@ function Settings({ changeSettings }) {
         </select>
       </div>
       <div className="select">
-        <select name="type" onChange={(e) => handleChange(changeType, e, changeSettings)}>
+        <select
+          name="trivia-type"
+          onChange={(e) => handleChange(changeType, e, changeSettings)}
+          data-testid="question-type-dropdown"
+        >
           <option value="any">Any Type</option>
           <option value="multiple">Multiple Choice</option>
           <option value="boolean">True / False</option>
