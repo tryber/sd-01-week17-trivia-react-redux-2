@@ -17,13 +17,11 @@ function whatLevel(difficulty) {
       return 0;
   }
 }
-
 function getRandomInt(min, max) {
   const minimun = Math.ceil(min);
   const maximun = Math.floor(max);
   return Math.floor(Math.random() * (maximun - minimun)) + minimun;
 }
-
 class Game extends Component {
   constructor(props) {
     super(props);
@@ -45,7 +43,6 @@ class Game extends Component {
     this.timeOut = this.timeOut.bind(this);
     this.feedBack = this.feedBack.bind(this);
   }
-
   componentDidMount() {
     const { data } = this.props;
     const { index } = this.state;
@@ -54,7 +51,6 @@ class Game extends Component {
     }
     this.intervalId = setInterval(this.timer, 1000);
   }
-
   componentDidUpdate(prevProps, prevState) {
     console.log(prevProps);
     const { answersOrder, index } = this.state;
@@ -63,17 +59,14 @@ class Game extends Component {
         document.getElementById(answers).style.backgroundColor = 'grey';
         document.getElementById(answers).disabled = false;
       });
-    } 
+    }
   }
-
   componentWillUnmount() {
     clearInterval(this.intervalId);
   }
-
   getTimeOut() {
     this.setState({ isPaused: true });
   }
-
   randomAnswers(data, index) {
     const currentQuestion = data[index];
     const answers = [...currentQuestion.incorrect_answers];
@@ -82,7 +75,6 @@ class Game extends Component {
       answersOrder: answers,
     });
   }
-
   wrongAnswers(eachAnswer, currentQuestion) {
     const { answersOrder } = this.state;
     const wrongAnswers = [...currentQuestion.incorrect_answers];
@@ -98,7 +90,6 @@ class Game extends Component {
         </button>
       </div>);
   }
-
   correctAnswer(eachAnswer, currentQuestion) {
     const { answersOrder } = this.state;
     return (
@@ -113,7 +104,6 @@ class Game extends Component {
         </button>
       </div>);
   }
-
   currentAnswers() {
     const { data } = this.props;
     const { index, answersOrder } = this.state;
@@ -132,7 +122,6 @@ class Game extends Component {
     }
     return null;
   }
-
   currentQuestion() {
     const { data } = this.props;
     const { index } = this.state;
@@ -147,7 +136,6 @@ class Game extends Component {
     }
     return null;
   }
-
   handleClick(bool, answers, currentQuestion) {
     const { difficulty } = currentQuestion;
     const { index } = this.state;
@@ -173,7 +161,6 @@ class Game extends Component {
       this.props.submitScores(changeHit, 1);
     }
   }
-
   nextQuestion(e) {
     const { data } = this.props;
     if (data) {
@@ -186,11 +173,9 @@ class Game extends Component {
     }
     e.target.style.display = 'none';
   }
-
   feedBack() {
     this.props.history.push('/feedback');
   }
-
   timeOut() {
     const { data } = this.props;
     const { index, answersOrder } = this.state;
@@ -211,7 +196,6 @@ class Game extends Component {
       });
     }
   }
-
   timer() {
     if (!this.state.isPaused) {
       this.setState({
@@ -222,7 +206,6 @@ class Game extends Component {
       clearInterval(this.intervalId);
     }
   }
-
   render() {
     const { currentCount, index } = this.state;
     return (
@@ -259,7 +242,6 @@ class Game extends Component {
 const mapStateToProps = ({
   Database: { data },
 }) => ({ data });
-
 
 const mapDispatchToProps = (dispatch) => ({
   submitScores: (callActions, value) => dispatch(callActions(value)),
