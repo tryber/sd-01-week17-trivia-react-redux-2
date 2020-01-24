@@ -65,7 +65,7 @@ const ReducerCategories = (state, action) => {
 };
 
 const Database = (state = initialState, action) => {
-  console.log(state)
+  console.log(state);
   const data = ReducerData(state, action);
   const categories = ReducerCategories(state, action);
   if (data) return data;

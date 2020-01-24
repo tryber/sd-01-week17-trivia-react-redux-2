@@ -24,7 +24,9 @@ class Settings extends Component {
       <div className="settings-container">
         <h1 className="title">Configurações</h1>
         <div className="select">
-          <select name="category" data-testid="question-category-dropdown"
+          <select
+            name="category"
+            data-testid="question-category-dropdown"
             onChange={(e) => this.handleChange(changeCategory, e)}
           >
             <option key="key" value="any">Any Category</option>
@@ -35,7 +37,8 @@ class Settings extends Component {
           </select>
         </div>
         <div className="select">
-          <select name="difficulty"
+          <select
+            name="difficulty"
             data-testid="question-difficulty-dropdown"
             onChange={(e) => this.handleChange(changeDifficulty, e)}
           >
@@ -46,7 +49,8 @@ class Settings extends Component {
           </select>
         </div>
         <div className="select">
-          <select name="type"
+          <select
+            name="type"
             data-testid="question-type-dropdown"
             onChange={(e) => this.handleChange(changeType, e)}
           >

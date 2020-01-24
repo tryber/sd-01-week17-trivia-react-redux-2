@@ -7,7 +7,7 @@ const INITIAL_SETTINGS_STATE = {
 };
 
 const DataFilter = (state = INITIAL_SETTINGS_STATE, action) => {
-  console.log(state)
+  console.log(state);
   switch (action.type) {
     case CHANGE_CATEGORY:
       return {

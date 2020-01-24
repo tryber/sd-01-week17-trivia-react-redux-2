@@ -6,7 +6,7 @@ const INITIAL_SETTINGS_STATE = {
 };
 
 const GameData = (state = INITIAL_SETTINGS_STATE, action) => {
-  console.log(state)
+  console.log(state);
   switch (action.type) {
     case CHANGE_SCORE:
       return {
