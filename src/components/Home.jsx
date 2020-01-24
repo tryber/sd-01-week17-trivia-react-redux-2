@@ -6,6 +6,8 @@ import md5 from 'md5-hash';
 
 import { changeName, changeEmail, changeToken } from '../actions/UserData';
 import { fetchData, fetchCategories } from '../actions/Database';
+import settingsIcon from '../img/settings-icon.png';
+import '../style/Home.css';
 
 class Home extends React.Component {
   constructor(props) {
@@ -13,6 +15,7 @@ class Home extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.generateInputs = this.generateInputs.bind(this);
   }
 
   componentDidMount() {
@@ -32,27 +35,55 @@ class Home extends React.Component {
     this.props.submitPlayerInformation(changeToken, src);
   }
 
-  render() {
+  generateInputs() {
     return (
-      <div className="App">
-        <h1>Home</h1>
-        <Link to="/settings">
-          <button data-testeid="config-button" type="button">Settings</button>
-        </Link>
+      <div className="home-container">
         <input
-          data-testeid="input-player-name"
-          type="text" id="player-name"
-          placeholder="tap your name"
-          onChange={(e) => this.handleChange(changeName, e)}
-        />
-        <input
-          data-testeid="input-gravatar-email"
-          type="email" id="player-email"
-          placeholder="Tap Your Email"
+          data-testid="input-gravatar-email"
+          type="email"
+          id="player-email"
+          placeholder="Email do Gravatar"
+          className="home-input"
           onChange={(e) => this.handleChange(changeEmail, e)}
         />
+        <label htmlFor="player-email" className="home-label">
+          Email do Gravatar
+        </label>
+        <input
+          data-testid="input-player-name"
+          type="text"
+          id="player-name"
+          placeholder="Nome do Jogador"
+          className="home-input"
+          onChange={(e) => this.handleChange(changeName, e)}
+        />
+        <label htmlFor="player-name" className="home-label">
+          Nome do Jogador
+        </label>
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <div className="App home-content">
+        <div className="home-header">
+          <h1 className="home-title">Home</h1>
+          <Link to="/settings">
+            <input
+              type="image"
+              src={settingsIcon}
+              className="settings-big-icon"
+              data-testid="config-button"
+              alt="settings button"
+            />
+          </Link>
+        </div>
+        {this.generateInputs()}
         <Link to="/game">
-          <button type="button" onClick={() => this.handleClick()}>Play</button>
+          <button type="button" className="play-game" onClick={() => this.handleClick()}>
+            Play
+          </button>
         </Link>
       </div>
     );

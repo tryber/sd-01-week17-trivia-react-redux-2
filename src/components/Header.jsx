@@ -1,23 +1,34 @@
-import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import settingsIcon from '../img/settings-icon.png';
 import '../style/Header.css';
 
-class Header extends Component {
-  render() {
-    const { name, token, score } = this.props;
-    return (
-      <div className="header-container">
-        <div className="center-bar">
-          <img src={token} alt="Game Player" className="player-image" />
-          <h1 data-testid="header-player-name">Jogador: {name}</h1>
-          <h2 data-testid="header-score">Score: {score}</h2>
-        </div>
-      </div>
-    );
-  }
-}
+const settingButton = () => (
+  <Link to="/Settings">
+    <input
+      type="image"
+      src={settingsIcon}
+      className="settings-icon"
+      data-testid="config-button"
+      alt="settings button"
+    />
+  </Link>
+);
+
+const Header = ({ name, token, score, settings }) => (
+  <div className="header-container">
+    <div className="center-bar">
+      <img src={token} alt="Game Player" className="player-image" />
+      <p data-testid="header-player-name">Jogador: {name}</p>
+    </div>
+    <div className="center-bar">
+      <p data-testid="header-score">Pontos: {score}</p>
+      {settings && settingButton()}
+    </div>
+  </div>
+);
 
 const mapStateToProps = ({
   UserData: { name, token },

@@ -18,10 +18,6 @@ class Settings extends Component {
     this.props.changeSettings(callActions, e.target.value);
   }
 
-  renderCategory() {
-    
-  }
-
   render() {
     const { categories } = this.props;
     return (
