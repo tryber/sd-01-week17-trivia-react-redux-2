@@ -23,27 +23,6 @@ class Game extends Component {
     this.getTimeOut = this.getTimeOut.bind(this);
   }
 
-  handleClick(bool, answers, currentQuestion) {
-    const { difficulty } = currentQuestion;
-    answers.forEach((eachAnswer) => {
-      if (eachAnswer === currentQuestion.correct_answer) {
-        document.getElementById(eachAnswer).style.backgroundColor = "green";
-      } else {
-        document.getElementById(eachAnswer).style.backgroundColor = "red";
-      }
-      document.getElementById(eachAnswer).disabled = true;
-    })
-    this.getTimeOut();
-    if (bool) {
-      const { currentCount } = this.state;
-      const level = this.whatLevel(difficulty);
-      const points = 10 + (currentCount * level);
-      this.props.submitScores(changePoints, points);
-      this.props.submitScores(changeHit, 1);
-    }
-
-  }
-
   currentAnswers(currentQuestion) {
     const { correct_answer, incorrect_answers } = currentQuestion;
     const wrongAnswers = [...incorrect_answers];
@@ -51,16 +30,18 @@ class Game extends Component {
     return (
       <div>
         {answersOrder.map((eachAnswer, index) => {
-          if (eachAnswer === correct_answer) return (
-            <div key={index}>
-              <button testid="correct-awnser"
-                onClick={() => this.handleClick(true, answersOrder, currentQuestion)}
-                key={`answer${index}`}
-                id={`${eachAnswer}`}
-              >
-                {eachAnswer}
-              </button>
-            </div>);
+          if (eachAnswer === correct_answer) {
+            return (
+              <div key={index}>
+                <button testid="correct-awnser"
+                  onClick={() => this.handleClick(true, answersOrder, currentQuestion)}
+                  key={`answer${index}`}
+                  id={`${eachAnswer}`}
+                >
+                  {eachAnswer}
+                </button>
+              </div>);
+          }
           return (
             <div key={index}>
               <button testid={`wrong-answer-${wrongAnswers.indexOf(eachAnswer)}`}
@@ -85,8 +66,46 @@ class Game extends Component {
     );
   }
 
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
+
+  componentDidMount() {
+    const { data } = this.props;
+    const { index } = this.state;
+    if (data) {
+      const currentQuestion = data[index];
+      const answers = [...currentQuestion.incorrect_answers];
+      answers.splice(Math.floor(Math.random() * answers.length), 0, currentQuestion.correct_answer);
+      this.setState({
+        answersOrder: answers,
+      });
+    }
+    this.intervalId = setInterval(this.timer, 1000);
+  }
+
   getTimeOut() {
     this.setState({ isPaused: true });
+  }
+
+  handleClick(bool, answers, currentQuestion) {
+    const { difficulty } = currentQuestion;
+    answers.forEach((eachAnswer) => {
+      if (eachAnswer === currentQuestion.correct_answer) {
+        document.getElementById(eachAnswer).style.backgroundColor = 'green';
+      } else {
+        document.getElementById(eachAnswer).style.backgroundColor = 'red';
+      }
+      document.getElementById(eachAnswer).disabled = true;
+    });
+    this.getTimeOut();
+    if (bool) {
+      const { currentCount } = this.state;
+      const level = this.whatLevel(difficulty);
+      const points = 10 + (currentCount * level);
+      this.props.submitScores(changePoints, points);
+      this.props.submitScores(changeHit, 1);
+    }
   }
 
   timer() {
@@ -111,24 +130,6 @@ class Game extends Component {
       default:
         return 0;
     }
-  }
-
-  componentDidMount() {
-    const { data } = this.props;
-    const { index } = this.state;
-    if (data) {
-      const currentQuestion = data[index];
-      const answers = [...currentQuestion.incorrect_answers];
-      answers.splice(Math.floor(Math.random() * answers.length), 0, currentQuestion.correct_answer);
-      this.setState({
-        answersOrder: answers,
-      });
-    }
-    this.intervalId = setInterval(this.timer, 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.intervalId);
   }
 
   render() {
