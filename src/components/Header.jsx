@@ -21,7 +21,7 @@ const Header = ({ name, token, score, settings }) => (
   <div className="header-container">
     <div className="center-bar">
       <img src={token} alt="Game Player" className="player-image" />
-      <p data-testid="header-player-name">Jogador: {name}</p>
+      Jogador: {name}
     </div>
     <div className="center-bar">
       <p data-testid="header-score">Pontos: {score}</p>
