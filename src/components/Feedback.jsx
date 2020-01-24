@@ -12,26 +12,25 @@ class Feedback extends Component {
   }
 
   verifyScore() {
-    if (this.props.numberOfHits >= 3) {
-      return 'Mandou bem!';
-    }
+    if (this.props.hit >= 3) return 'Mandou bem!';
     return 'Podia ser melhor...';
   }
 
   updateRankingStorage() {
-    const { scorePoints, numberOfHits, name } = this.props;
-    localStorage.setItem(`Ranking - ${name}`, [name, scorePoints, numberOfHits]);
+    const { score, hit, name } = this.props;
+    const rankData = [name, score, hit];
+    localStorage.setItem(`Ranking - ${name}`, JSON.stringify(rankData));
   }
 
   render() {
-    const { scorePoints, numberOfHits, name } = this.props;
+    const { score, hit, name } = this.props;
     return (
       <div>
         <Header settings />
-        <h3 data-testid="feedback-text">{scorePoints && numberOfHits && this.verifyScore()}</h3>
+        <h3 data-testid="feedback-text">{this.verifyScore()}</h3>
         <div>
-          <p data-testid="feedback-total-question">Você acertou {numberOfHits} questões!</p>
-          <p data-testid="feedback-total-scorePoints">Um total de {scorePoints} pontos</p>
+          <p data-testid="feedback-total-question">Você acertou {hit} questões!</p>
+          <p data-testid="feedback-total-scorePoints">Um total de {score} pontos</p>
         </div>
         <Link to="/ranking">
           <button type="button">
@@ -43,7 +42,7 @@ class Feedback extends Component {
             Jogar Novamente
           </button>
         </Link>
-        {name && scorePoints && numberOfHits && this.updateRankingStorage()}
+        {name && this.updateRankingStorage()}
       </div>
     );
   }
@@ -51,15 +50,15 @@ class Feedback extends Component {
 
 Feedback.propTypes = {
   name: PropTypes.string.isRequired,
-  scorePoints: PropTypes.number.isRequired,
-  numberOfHits: PropTypes.number.isRequired,
+  score: PropTypes.number.isRequired,
+  hit: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = ({
-  ReducerHome: { name },
-  ReducerGame: { scorePoints, numberOfHits },
+  UserData: { name },
+  GameData: { score, hit },
 }) => ({
-  name, scorePoints, numberOfHits,
+  name, score, hit,
 });
 
 export default connect(mapStateToProps)(Feedback);
