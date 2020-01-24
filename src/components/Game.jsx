@@ -72,7 +72,7 @@ class Game extends Component {
     return (
       <div key={eachAnswer}>
         <button
-          testid={`wrong-answer-${wrongAnswers.indexOf(eachAnswer)}`}
+          data-testid={`wrong-answer-${wrongAnswers.indexOf(eachAnswer)}`}
           onClick={() => this.handleClick(false, answersOrder, currentQuestion)}
           key={`answer${eachAnswer}`}
           id={eachAnswer}
@@ -87,7 +87,7 @@ class Game extends Component {
     return (
       <div key={eachAnswer}>
         <button
-          testid="correct-awnser"
+          data-testid="correct-answer"
           onClick={() => this.handleClick(true, answersOrder, currentQuestion)}
           key={`answer${eachAnswer}`}
           id={eachAnswer}
