@@ -15,7 +15,7 @@ function HomeInputs({ submitPlayerInformation }) {
         onChange={(e) => submitPlayerInformation(changeEmail, e.target.value)}
       />
       <label htmlFor="player-email" className="home-label">
-        Gravatar&lt;s Email
+        Gravatar&#39;s Email
       </label>
 
       <input
@@ -27,7 +27,7 @@ function HomeInputs({ submitPlayerInformation }) {
         onChange={(e) => submitPlayerInformation(changeName, e.target.value)}
       />
       <label htmlFor="player-name" className="home-label">
-        Player&lt;s Name
+        Player&#39;s Name
       </label>
     </div>
   );
