@@ -18,8 +18,8 @@ class Feedback extends Component {
 
   updateRankingStorage() {
     const { score, name, token } = this.props;
-    const ranking = JSON.parse(localStorage.getItem("ranking")) || [];
-    const playerData = {name, score, picture: token};
+    const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
+    const playerData = { name, score, picture: token };
     ranking.push(playerData);
     localStorage.setItem('ranking', JSON.stringify(ranking));
   }

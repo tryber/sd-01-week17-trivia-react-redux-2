@@ -6,15 +6,13 @@ function Ranking() {
   const playersScore = ranking.map((player) => player.score);
   const scoreRank = playersScore.sort((a, b) => b - a);
   const playersRank = scoreRank.map((score) => ranking.find((player) => player.score === score));
-  const leaderboard = playersRank.map(player => {
-    return (
-      <div className="ranking-player">
-        <img src={player.picture} alt="Game Player" />
-        <h4>{player.name}</h4>-
-        <p>{player.score} Points</p>
-      </div>
-    );
-  });
+  const leaderboard = playersRank.map((player) => (
+    <div className="ranking-player">
+      <img src={player.picture} alt="Game Player" />
+      <h4>{player.name}</h4>-
+      <p>{player.score} Points</p>
+    </div>
+  ));
 
   return (
     <div className="ranking-content">
