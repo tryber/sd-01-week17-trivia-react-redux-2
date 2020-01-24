@@ -212,7 +212,6 @@ class Game extends Component {
         >
           Next Question
             </button>
-            
       </div>
     );
   }
