@@ -1,4 +1,4 @@
-import { CHANGE_CATEGORY, CHANGE_TYPE, CHANGE_DIFFICULTY } from '../actions/ActionSettings';
+import { CHANGE_CATEGORY, CHANGE_TYPE, CHANGE_DIFFICULTY } from '../actions/DataFilter';
 
 const INITIAL_SETTINGS_STATE = {
   category: 'any',
@@ -6,7 +6,8 @@ const INITIAL_SETTINGS_STATE = {
   difficulty: 'any',
 };
 
-const ReducerSettings = (state = INITIAL_SETTINGS_STATE, action) => {
+const DataFilter = (state = INITIAL_SETTINGS_STATE, action) => {
+  console.log(state)
   switch (action.type) {
     case CHANGE_CATEGORY:
       return {
@@ -28,4 +29,4 @@ const ReducerSettings = (state = INITIAL_SETTINGS_STATE, action) => {
   }
 };
 
-export default ReducerSettings;
+export default DataFilter;

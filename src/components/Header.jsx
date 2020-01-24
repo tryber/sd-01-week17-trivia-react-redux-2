@@ -1,44 +1,33 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import '../style/Header.css';
 
-const settingButton = () => (
-  <Link to="/Settings">
-    <button type="button" className="settings-button">
-      <img src="../img/settings-icon.png" alt="settings icon" className="settings-icon" />
-    </button>
-  </Link>
-);
+class Header extends Component {
+  render() {
+    const { name, token, score } = this.props;
+    return (
+      <div className="header-container">
+        <div className="center-bar">
+          <img src={token} alt="Game Player" className="player-image" />
+          <h1 data-testid="header-player-name">Jogador: {name}</h1>
+          <h2 data-testid="header-score">Score: {score}</h2>
+        </div>
+      </div>
+    );
+  }
+}
 
-const Header = ({ name, token, scorePoints, settings }) => (
-  <div className="header-container">
-    <div className="center-bar">
-      <img src={token} alt="Game Player" className="player-image" />
-      Jogador: {name}
-    </div>
-    <div className="center-bar">
-      Pontos: {scorePoints}
-      {settings && settingButton()}
-    </div>
-  </div>
-);
+const mapStateToProps = ({
+  UserData: { name, token },
+  GameData: { score },
+}) => ({ name, token, score });
 
 Header.propTypes = {
   name: PropTypes.string.isRequired,
   token: PropTypes.string.isRequired,
-  scorePoints: PropTypes.number.isRequired,
-  settings: PropTypes.bool,
+  score: PropTypes.number.isRequired,
 };
-
-Header.defaultProps = {
-  settings: false,
-};
-
-const mapStateToProps = ({
-  ReducerHome: { name, token },
-  ReducerGame: { scorePoints },
-}) => ({ name, token, scorePoints });
 
 export default connect(mapStateToProps)(Header);

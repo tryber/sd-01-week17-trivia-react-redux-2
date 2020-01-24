@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+import Header from './Header';
 
-import Store from '../Store/Store';
-import fetchData from '../actions/ActionGame';
+import { changePoints, changeHit } from '../actions/GameData';
+
 
 class Game extends Component {
   constructor(props) {
@@ -12,86 +13,182 @@ class Game extends Component {
 
     this.state = {
       index: 0,
-      guess: '',
+      answersOrder: [],
+      currentCount: 30,
+      isPaused: false,
+    }
+
+    this.handleClick = this.handleClick.bind(this);
+    this.timer = this.timer.bind(this);
+    this.getTimeOut = this.getTimeOut.bind(this);
+  }
+
+  whatLevel(difficulty) {
+    switch (difficulty) {
+      case 'hard':
+        return 3;
+      case 'medium':
+        return 2;
+      case 'easy':
+        return 1;
+      default:
+        return 0;
     }
   }
 
-  componentDidMount() {
-    this.props.getData();
+  handleClick(bool, answers, currentQuestion) {
+    const { correct_answer, difficulty } = currentQuestion;
+    answers.forEach(eachAnswer => {
+      if (eachAnswer === correct_answer) {
+        document.getElementById(eachAnswer).style.backgroundColor = "green";
+      } else {
+        document.getElementById(eachAnswer).style.backgroundColor = "red";
+      }
+      document.getElementById(eachAnswer).disabled = true;
+    })
+    this.getTimeOut();
+    if (bool) {
+      const { currentCount } = this.state;
+      const level = this.whatLevel(difficulty);
+      const points = 10 + (currentCount * level);
+      this.props.submitScores(changePoints, points);
+      this.props.submitScores(changeHit, 1);
+    }
+
   }
 
-  handleClick(event) {
-    console.log(event.target.innerHTML)
-  }
-
-  renderAnswers(currentQuestion) {
+  currentAnswers(currentQuestion) {
     const { correct_answer, incorrect_answers } = currentQuestion;
     const wrongAnswers = [...incorrect_answers];
-    const answers = [...incorrect_answers];
-    answers.splice(Math.floor(Math.random() * answers.length), 0, correct_answer);
+    const { answersOrder } = this.state;
     return (
       <div>
-        {answers.map((eachAnswer, index) => {
-          if(eachAnswer === correct_answer) return (
+        {answersOrder.map((eachAnswer, index) => {
+          if (eachAnswer === correct_answer) return (
             <div key={index}>
-              <label testid="correct-awnser" htmlFor={`answer${index}`} onClick={(e) => this.handleClick(e)} key={`answer${index}`}>{eachAnswer}</label>
-              <input key={`${index}answer`} type="radio" id={`answer${index}`} name="answers" />
+              <button testid="correct-awnser"
+                onClick={() => this.handleClick(true, answersOrder, currentQuestion)}
+                key={`answer${index}`}
+                id={`${eachAnswer}`}
+              >
+                {eachAnswer}
+              </button>
             </div>);
-            return (
-              <div key={index}>
-                <label testid={`wrong-answer-${wrongAnswers.indexOf(eachAnswer)}`} htmlFor={`answer${index}`} onClick={(e) => this.handleClick(e)} key={`answer${index}`}>{eachAnswer}</label>
-                <input key={`${index}answer`} type="radio" id={`answer${index}`} name="answers" />
-              </div>);
+          return (
+            <div key={index}>
+              <button testid={`wrong-answer-${wrongAnswers.indexOf(eachAnswer)}`}
+                onClick={() => this.handleClick(false, answersOrder, currentQuestion)}
+                key={`answer${index}`}
+                id={`${eachAnswer}`}
+              >
+                {eachAnswer}
+              </button>
+            </div>);
         })}
-      </div>
-    )
-  }
-
-  renderQuestion() {
-    const { index } = this.state;
-    const { data } = this.props;
-    const currentQuestion = data[index]
-    return (
-      <div>
-        <h1>{currentQuestion.question}</h1>
-        {this.renderAnswers(currentQuestion)}
       </div>
     );
   }
 
-  render() {
-    console.log(Store.getState());
-    const { name, token, error, data } = this.props;
+  currentQuestion(currentQuestion) {
     return (
-      <div className="App">
-        <h1>Olar {name}</h1>
-        <img src={token} alt="profile icon" />
-        <h2>Score: 0</h2>
-        {error ? <Redirect to="/" /> : null}
-        {data && this.renderQuestion()}
+      <div>
+        <h2 data-testid="question-category">{currentQuestion.category}</h2>
+        <p data-testid="question-text">{currentQuestion.question}</p>
+      </div>
+    );
+  }
+
+  getTimeOut() {
+    this.setState({ isPaused: true });
+  }
+
+  timer() {
+    if (!this.state.isPaused) {
+      this.setState({
+        currentCount: this.state.currentCount - 1,
+      });
+    }
+    if (this.state.currentCount < 1) {
+      clearInterval(this.intervalId);
+    }
+  }
+
+  componentDidMount() {
+    const { data } = this.props;
+    const { index } = this.state;
+    if (data) {
+      const currentQuestion = data[index];
+      const { correct_answer, incorrect_answers } = currentQuestion;
+      const answers = [...incorrect_answers];
+      answers.splice(Math.floor(Math.random() * answers.length), 0, correct_answer);
+      this.setState({
+        answersOrder: answers,
+      })
+    }
+    this.intervalId = setInterval(this.timer, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
+
+  render() {
+    const { data } = this.props;
+    const { index, currentCount } = this.state;
+    if (data) {
+      const currentQuestion = data[index];
+      return (
+        <div>
+          <Header />
+          {this.currentQuestion(currentQuestion)}
+          {this.currentAnswers(currentQuestion)}
+          <div className="timer">
+            <p data-testid="timer">{currentCount}</p>
+          </div>
+          <div className="next-button">
+            <button type="button">Next Question</button>
+          </div>
+        </div>
+      );
+    }
+    return (
+      <div>
+        Loading...
       </div>
     );
   }
 }
 
 const mapStateToProps = ({
-  ReducerHome: { name, token },
-  ReducerGame: { error, data },
-}) => ({ name, token, error, data });
+  UserData: { name, token },
+  Database: { errorData, data, errorCategories },
+}) => ({ name, token, errorData, data, errorCategories });
+
 
 const mapDispatchToProps = (dispatch) => ({
-  getData: () => dispatch(fetchData()),
+  submitScores: (callActions, value) => dispatch(callActions(value)),
 });
 
 Game.propTypes = {
   name: PropTypes.string.isRequired,
   token: PropTypes.string.isRequired,
-  getData: PropTypes.func.isRequired,
-  error: PropTypes.bool,
+  errorData: PropTypes.bool,
+  errorCategories: PropTypes.bool,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    category: PropTypes.string.isRequired,
+    correct_answer: PropTypes.string.isRequired,
+    difficulty: PropTypes.string.isRequired,
+    incorrect_answers: PropTypes.arrayOf(PropTypes.string.isRequired),
+    question: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+  })),
+  submitScores: PropTypes.func.isRequired,
 };
 
 Game.defaultProps = {
-  error: false,
-}
+  errorData: false,
+  errorCategories: false,
+  data: null,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

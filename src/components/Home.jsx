@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import md5 from 'md5-hash';
 
-import { changeName, changeEmail, changeToken } from '../actions/ActionHome';
+import { changeName, changeEmail, changeToken } from '../actions/UserData';
+import { fetchData, fetchCategories } from '../actions/Database';
 
 class Home extends React.Component {
   constructor(props) {
@@ -14,15 +15,21 @@ class Home extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleChange(e, callActions) {
-    this.props.SubmitPlayerInformation(callActions, e.target.value);
+  handleChange(callActions, e) {
+    this.props.submitPlayerInformation(callActions, e.target.value);
   }
 
   handleClick() {
     const { email } = this.props;
     const hash = md5(email.toLowerCase());
     const src = `https://www.gravatar.com/avatar/${hash}`;
-    this.props.SubmitPlayerInformation(changeToken, src);
+    this.props.submitPlayerInformation(changeToken, src);
+  }
+
+  componentDidMount() {
+    const { category, type, difficulty } = this.props;
+    this.props.fetchingSomething(fetchData(category, type, difficulty));
+    this.props.fetchingSomething(fetchCategories());
   }
 
   render() {
@@ -32,23 +39,18 @@ class Home extends React.Component {
         <Link to="/settings">
           <button data-testeid="config-button" type="button">Settings</button>
         </Link>
-        <label htmlFor="player-name">
           <input
             data-testeid="input-player-name"
             type="text" id="player-name"
-            placeholder="Tap Your Name"
-            onChange={(e) => this.handleChange(e, changeName)}
+            placeholder="tap your name"
+            onChange={(e) => this.handleChange(changeName, e)}
           />
-        </label>
-        <label htmlFor="player-email">
           <input
             data-testeid="input-gravatar-email"
-            type="email"
-            id="player-email"
+            type="email" id="player-email"
             placeholder="Tap Your Email"
-            onChange={(e) => this.handleChange(e, changeEmail)}
+            onChange={(e) => this.handleChange(changeEmail, e)}
           />
-        </label>
         <Link to="/game">
           <button type="button" onClick={() => this.handleClick()}>Play</button>
         </Link>
@@ -58,16 +60,22 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = ({
-  ReducerHome: { email },
-}) => ({ email });
+  UserData: { email },
+  DataFilter: { category, type, difficulty },
+}) => ({ email, category, type, difficulty });
 
 const mapDispatchToProps = (dispatch) => ({
-  SubmitPlayerInformation: (callActions, value) => dispatch(callActions(value)),
+  submitPlayerInformation: (callActions, value) => dispatch(callActions(value)),
+  fetchingSomething: (fetchingSomething) => dispatch(fetchingSomething),
 });
 
 Home.propTypes = {
   email: PropTypes.string.isRequired,
-  SubmitPlayerInformation: PropTypes.func.isRequired,
+  category: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  difficulty: PropTypes.string.isRequired,
+  submitPlayerInformation: PropTypes.func.isRequired,
+  fetchingSomething: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
