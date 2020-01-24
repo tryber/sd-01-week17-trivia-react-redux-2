@@ -41,7 +41,7 @@ const ReducerData = (state, action) => {
 };
 
 const ReducerCategories = (state = initialState, action) => {
-  console.log(state)
+  console.log(state);
   switch (action.type) {
     case REQUEST_CATEGORIES:
       return {

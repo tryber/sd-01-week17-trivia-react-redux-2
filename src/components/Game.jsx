@@ -142,9 +142,9 @@ class Game extends Component {
       }
       document.getElementById(eachAnswer).disabled = true;
       if (index < 4) {
-        document.getElementById("next-question").style.display = 'block';
+        document.getElementById('next-question').style.display = 'block';
       } else {
-        document.getElementById("feedback").style.display = 'block';
+        document.getElementById('feedback').style.display = 'block';
       }
     });
     this.getTimeOut();
@@ -167,11 +167,11 @@ class Game extends Component {
         isPaused: false,
       }));
     }
-    e.target.style.display = 'none';  
+    e.target.style.display = 'none';
   }
 
   feedBack() {
-    this.props.history.push(`/feedback`);
+    this.props.history.push('/feedback');
   }
 
   timeOut() {
@@ -179,19 +179,19 @@ class Game extends Component {
     const { index, answersOrder } = this.state;
     if (data) {
       const currentQuestion = data[index];
-        answersOrder.forEach((eachAnswer) => {
-          if (eachAnswer === currentQuestion.correct_answer) {
-            document.getElementById(eachAnswer).style.backgroundColor = 'green';
-          } else {
-            document.getElementById(eachAnswer).style.backgroundColor = 'red';
-          }
-          document.getElementById(eachAnswer).disabled = true;
-          if (index < 4) {
-            document.getElementById("next-question").style.display = 'block';
-          } else {
-            document.getElementById("feedback").style.display = 'block';
-          }
-        });    
+      answersOrder.forEach((eachAnswer) => {
+        if (eachAnswer === currentQuestion.correct_answer) {
+          document.getElementById(eachAnswer).style.backgroundColor = 'green';
+        } else {
+          document.getElementById(eachAnswer).style.backgroundColor = 'red';
+        }
+        document.getElementById(eachAnswer).disabled = true;
+        if (index < 4) {
+          document.getElementById('next-question').style.display = 'block';
+        } else {
+          document.getElementById('feedback').style.display = 'block';
+        }
+      });
     }
   }
 
@@ -258,6 +258,10 @@ Game.propTypes = {
     type: PropTypes.string.isRequired,
   })),
   submitScores: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    action: PropTypes.string.isRequired,
+    length: PropTypes.number.isRequired,
+  }),
 };
 
 Game.defaultProps = {
