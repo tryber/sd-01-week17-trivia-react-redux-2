@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Header from './Header';
 
 import { changePoints, changeHit } from '../actions/GameData';
@@ -140,6 +140,7 @@ class Game extends Component {
         document.getElementById(eachAnswer).style.backgroundColor = 'red';
       }
       document.getElementById(eachAnswer).disabled = true;
+      document.getElementById("next-question").style.display = 'block';
     });
     this.getTimeOut();
     if (bool) {
@@ -149,6 +150,21 @@ class Game extends Component {
       this.props.submitScores(changePoints, points);
       this.props.submitScores(changeHit, 1);
     }
+  }
+
+  nextQuestion() {
+    const { data } = this.props;
+    if (data) {
+      this.setState((state) => ({
+        index: state.index + 1,
+        answersOrder:  this.randomAnswers(data, state.index + 1),
+        currentCount: 30,
+        isPaused: false,}));
+    }
+  }
+
+  feedBack() {
+    return <Redirect to='/' />
   }
 
   timeOut() {
@@ -163,6 +179,7 @@ class Game extends Component {
           document.getElementById(eachAnswer).style.backgroundColor = 'red';
         }
         document.getElementById(eachAnswer).disabled = true;
+        document.getElementById("next-question").style.display = 'block';
       });
     }
   }
@@ -187,7 +204,15 @@ class Game extends Component {
         {this.currentAnswers()}
         {currentCount === 0 && this.timeOut()}
         <div className="timer"><p data-testid="timer">{currentCount}</p></div>
-        <div className="next-button"><button type="button">Next Question</button></div>
+        <button
+          onClick={() => this.nextQuestion()}
+          style={{ display: 'none' }} 
+          id="next-question"
+          type="button"
+        >
+          Next Question
+            </button>
+            
       </div>
     );
   }
