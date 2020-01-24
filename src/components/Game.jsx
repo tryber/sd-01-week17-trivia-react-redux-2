@@ -91,18 +91,23 @@ class Game extends Component {
       </div>);
   }
 
-  currentAnswers(currentQuestion) {
-    const { answersOrder } = this.state;
-    return (
-      <div>
-        {answersOrder.map((eachAnswer) => {
-          if (eachAnswer === currentQuestion.correct_answer) {
-            return this.correctAnswer(eachAnswer, currentQuestion);
-          }
-          return this.wrongAnswers(eachAnswer, currentQuestion);
-        })}
-      </div>
-    );
+  currentAnswers() {
+    const { data } = this.props;
+    const { index, answersOrder } = this.state;
+    if (data) {
+      const currentQuestion = data[index];
+      return (
+        <div>
+          {answersOrder.map((eachAnswer) => {
+            if (eachAnswer === currentQuestion.correct_answer) {
+              return this.correctAnswer(eachAnswer, currentQuestion);
+            }
+            return this.wrongAnswers(eachAnswer, currentQuestion);
+          })}
+        </div>
+      );
+    }
+    return null;
   }
 
   currentQuestion() {
@@ -117,6 +122,7 @@ class Game extends Component {
         </div>
       );
     }
+    return null;
   }
 
   handleClick(bool, answers, currentQuestion) {
@@ -151,21 +157,16 @@ class Game extends Component {
   }
 
   render() {
-    const { data } = this.props;
-    const { index, currentCount } = this.state;
-    if (data) {
-      const currentQuestion = data[index];
-      return (
-        <div>
-          <Header />
-          {this.currentQuestion(currentQuestion)}
-          {this.currentAnswers(currentQuestion)}
-          <div className="timer"><p data-testid="timer">{currentCount}</p></div>
-          <div className="next-button"><button type="button">Next Question</button></div>
-        </div>
-      );
-    }
-    return (<div> Loading... </div>);
+    const { currentCount } = this.state;
+    return (
+      <div>
+        <Header />
+        {this.currentQuestion()}
+        {this.currentAnswers()}
+        <div className="timer"><p data-testid="timer">{currentCount}</p></div>
+        <div className="next-button"><button type="button">Next Question</button></div>
+      </div>
+    );
   }
 }
 
