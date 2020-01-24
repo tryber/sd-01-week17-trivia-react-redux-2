@@ -6,6 +6,18 @@ import Header from './Header';
 
 import { changePoints, changeHit } from '../actions/GameData';
 
+function whatLevel(difficulty) {
+  switch (difficulty) {
+    case 'hard':
+      return 3;
+    case 'medium':
+      return 2;
+    case 'easy':
+      return 1;
+    default:
+      return 0;
+  }
+}
 
 class Game extends Component {
   constructor(props) {
@@ -23,6 +35,7 @@ class Game extends Component {
     this.getTimeOut = this.getTimeOut.bind(this);
     this.correctAnswer = this.correctAnswer.bind(this);
     this.wrongAnswers = this.wrongAnswers.bind(this);
+    this.currentQuestion = this.currentQuestion.bind(this);
   }
 
   componentDidMount() {
@@ -92,13 +105,18 @@ class Game extends Component {
     );
   }
 
-  currentQuestion(currentQuestion) {
-    return (
-      <div>
-        <h2 data-testid="question-category">{currentQuestion.category}</h2>
-        <p data-testid="question-text">{currentQuestion.question}</p>
-      </div>
-    );
+  currentQuestion() {
+    const { data } = this.props;
+    const { index } = this.state;
+    if (data) {
+      const currentQuestion = data[index];
+      return (
+        <div>
+          <h2 data-testid="question-category">{currentQuestion.category}</h2>
+          <p data-testid="question-text">{currentQuestion.question}</p>
+        </div>
+      );
+    }
   }
 
   handleClick(bool, answers, currentQuestion) {
@@ -114,7 +132,7 @@ class Game extends Component {
     this.getTimeOut();
     if (bool) {
       const { currentCount } = this.state;
-      const level = this.whatLevel(difficulty);
+      const level = whatLevel(difficulty);
       const points = 10 + (currentCount * level);
       this.props.submitScores(changePoints, points);
       this.props.submitScores(changeHit, 1);
@@ -132,19 +150,6 @@ class Game extends Component {
     }
   }
 
-  whatLevel(difficulty) {
-    switch (difficulty) {
-      case 'hard':
-        return 3;
-      case 'medium':
-        return 2;
-      case 'easy':
-        return 1;
-      default:
-        return 0;
-    }
-  }
-
   render() {
     const { data } = this.props;
     const { index, currentCount } = this.state;
@@ -155,20 +160,12 @@ class Game extends Component {
           <Header />
           {this.currentQuestion(currentQuestion)}
           {this.currentAnswers(currentQuestion)}
-          <div className="timer">
-            <p data-testid="timer">{currentCount}</p>
-          </div>
-          <div className="next-button">
-            <button type="button">Next Question</button>
-          </div>
+          <div className="timer"><p data-testid="timer">{currentCount}</p></div>
+          <div className="next-button"><button type="button">Next Question</button></div>
         </div>
       );
     }
-    return (
-      <div>
-        Loading...
-      </div>
-    );
+    return (<div> Loading... </div>);
   }
 }
 
