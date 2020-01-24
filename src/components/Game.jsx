@@ -32,10 +32,11 @@ class Game extends Component {
         {answersOrder.map((eachAnswer, index) => {
           if (eachAnswer === correct_answer) {
             return (
-              <div key={index}>
-                <button testid="correct-awnser"
+              <div key={eachAnswer}>
+                <button
+                  testid="correct-awnser"
                   onClick={() => this.handleClick(true, answersOrder, currentQuestion)}
-                  key={`answer${index}`}
+                  key={`answer${eachAnswer}`}
                   id={`${eachAnswer}`}
                 >
                   {eachAnswer}
@@ -43,10 +44,11 @@ class Game extends Component {
               </div>);
           }
           return (
-            <div key={index}>
-              <button testid={`wrong-answer-${wrongAnswers.indexOf(eachAnswer)}`}
+            <div key={eachAnswer}>
+              <button
+                testid={`wrong-answer-${wrongAnswers.indexOf(eachAnswer)}`}
                 onClick={() => this.handleClick(false, answersOrder, currentQuestion)}
-                key={`answer${index}`}
+                key={`answer${eachAnswer}`}
                 id={`${eachAnswer}`}
               >
                 {eachAnswer}
