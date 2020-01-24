@@ -19,9 +19,9 @@ function whatLevel(difficulty) {
 }
 
 function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min;
+  const minimun = Math.ceil(min);
+  const maximun = Math.floor(max);
+  return Math.floor(Math.random() * (maximun - minimun)) + minimun;
 }
 
 class Game extends Component {
@@ -58,11 +58,12 @@ class Game extends Component {
   componentDidUpdate(prevProps, prevState) {
     console.log(prevProps);
     const { answersOrder, index } = this.state;
-    if (prevState.index !== index)
-      answersOrder.forEach(answers => {
+    if (prevState.index !== index) {
+      answersOrder.forEach((answers) => {
         document.getElementById(answers).style.backgroundColor = 'grey';
         document.getElementById(answers).disabled = false;
-      })
+      });
+    } 
   }
 
   componentWillUnmount() {
