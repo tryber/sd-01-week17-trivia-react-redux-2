@@ -12,8 +12,8 @@ class Feedback extends Component {
   }
 
   verifyScore() {
-    if (this.props.hit >= 3) return 'Mandou bem!';
-    return 'Podia ser melhor...';
+    if (this.props.hit >= 3) return 'Nice Job!';
+    return 'Could be better...';
   }
 
   updateRankingStorage() {
@@ -29,17 +29,17 @@ class Feedback extends Component {
         <Header settings />
         <h3 data-testid="feedback-text">{this.verifyScore()}</h3>
         <div>
-          <p data-testid="feedback-total-question">Você acertou {hit} questões!</p>
-          <p data-testid="feedback-total-score">Um total de {score} pontos</p>
+          <p data-testid="feedback-total-question">You got {hit} questions right!</p>
+          <p data-testid="feedback-total-score">A total of {score} points</p>
         </div>
         <Link to="/ranking">
           <button type="button">
-            Ver Ranking
+            See Ranking
           </button>
         </Link>
         <Link to="/home">
           <button type="button">
-            Jogar Novamente
+            Play Again
           </button>
         </Link>
         {name && this.updateRankingStorage()}
