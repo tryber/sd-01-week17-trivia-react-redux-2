@@ -5,21 +5,19 @@ import { changeCategory } from '../actions/DataFilter';
 
 function QuestionCategory({ categories, changeSettings }) {
   return (
-    <div className="select">
-      <select
-        name="category"
-        data-testid="question-category-dropdown"
-        onChange={(e) => changeSettings(changeCategory, e.target.value)}
-      >
-        <option key="key" value="any">Any Category</option>
-        {categories && categories.trivia_categories
-            .map((categoryObject) =>
-              <option key={categoryObject.name} value={categoryObject.id}>
-                {categoryObject.name}
-              </option>,
-          )}
-      </select>
-    </div>
+    <select
+      name="category"
+      data-testid="question-category-dropdown"
+      onChange={(e) => changeSettings(changeCategory, e.target.value)}
+    >
+      <option key="key" value="any">Any Category</option>
+      {categories && categories.trivia_categories
+          .map((categoryObject) =>
+            <option key={categoryObject.name} value={categoryObject.id}>
+              {categoryObject.name}
+            </option>,
+        )}
+    </select>
   );
 }
 

@@ -4,64 +4,30 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import md5 from 'md5-hash';
 
-import { changeName, changeEmail, changeToken } from '../actions/UserData';
 import { fetchData, fetchCategories } from '../actions/Database';
+import { changeToken } from '../actions/UserData';
 import settingsIcon from '../img/settings-icon.png';
+import HomeInputs from './HomeInputs';
 import '../style/Home.css';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.generateInputs = this.generateInputs.bind(this);
+    this.getGravatarImage = this.getGravatarImage.bind(this);
   }
 
   componentDidMount() {
-    const { category, type, difficulty } = this.props;
-    this.props.fetchingSomething(fetchData(category, type, difficulty));
-    this.props.fetchingSomething(fetchCategories());
+    const { category, type, difficulty, fetchingSomething } = this.props;
+    fetchingSomething(fetchData(category, type, difficulty));
+    fetchingSomething(fetchCategories());
   }
 
-  handleChange(callActions, e) {
-    this.props.submitPlayerInformation(callActions, e.target.value);
-  }
-
-  handleClick() {
-    const { email } = this.props;
+  getGravatarImage() {
+    const { email, submitPlayerInformation } = this.props;
     const hash = md5(email.toLowerCase());
     const src = `https://www.gravatar.com/avatar/${hash}`;
-    this.props.submitPlayerInformation(changeToken, src);
-  }
-
-  generateInputs() {
-    return (
-      <div className="home-container">
-        <input
-          data-testid="input-gravatar-email"
-          type="email"
-          id="player-email"
-          placeholder="Email do Gravatar"
-          className="home-input"
-          onChange={(e) => this.handleChange(changeEmail, e)}
-        />
-        <label htmlFor="player-email" className="home-label">
-          Email do Gravatar
-        </label>
-        <input
-          data-testid="input-player-name"
-          type="text"
-          id="player-name"
-          placeholder="Nome do Jogador"
-          className="home-input"
-          onChange={(e) => this.handleChange(changeName, e)}
-        />
-        <label htmlFor="player-name" className="home-label">
-          Nome do Jogador
-        </label>
-      </div>
-    );
+    submitPlayerInformation(changeToken, src);
   }
 
   render() {
@@ -79,10 +45,10 @@ class Home extends React.Component {
             />
           </Link>
         </div>
-        {this.generateInputs()}
+        <HomeInputs />
         <Link to="/game">
-          <button type="button" className="play-game" onClick={() => this.handleClick()}>
-            Play
+          <button type="button" className="play-game" onClick={() => this.getGravatarImage()}>
+            Play Game
           </button>
         </Link>
       </div>
@@ -102,11 +68,16 @@ const mapDispatchToProps = (dispatch) => ({
 
 Home.propTypes = {
   email: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  difficulty: PropTypes.string.isRequired,
-  submitPlayerInformation: PropTypes.func.isRequired,
+  category: PropTypes.string,
+  difficulty: PropTypes.string,
+  type: PropTypes.string,
   fetchingSomething: PropTypes.func.isRequired,
 };
+
+Home.defaultProps = {
+  category: 'any',
+  difficulty: 'any',
+  type: 'any',
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

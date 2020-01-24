@@ -6,6 +6,7 @@ import Home from './components/Home';
 import Settings from './components/Settings';
 import Game from './components/Game';
 import Feedback from './components/Feedback';
+import Ranking from './components/Ranking';
 import './App.css';
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/settings" component={Settings} />
         <Route path="/game" component={Game} />
         <Route path="/feedback" component={Feedback} />
+        <Route path="/ranking" component={Ranking} />
       </Switch>
     </BrowserRouter>
   );

@@ -5,17 +5,15 @@ import { changeType } from '../actions/DataFilter';
 
 function QuestionType({ changeSettings }) {
   return (
-    <div className="select">
-      <select
-        name="type"
-        data-testid="question-type-dropdown"
-        onChange={(e) => changeSettings(changeType, e.target.value)}
-      >
-        <option value="any">Any Type</option>
-        <option value="multiple">Multiple Choice</option>
-        <option value="boolean">True / False</option>
-      </select>
-    </div>
+    <select
+      name="type"
+      data-testid="question-type-dropdown"
+      onChange={(e) => changeSettings(changeType, e.target.value)}
+    >
+      <option value="any">Any Type</option>
+      <option value="multiple">Multiple Choice</option>
+      <option value="boolean">True / False</option>
+    </select>
   );
 }
 

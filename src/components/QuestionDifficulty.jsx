@@ -5,18 +5,16 @@ import { changeDifficulty } from '../actions/DataFilter';
 
 function QuestionDifficulty({ changeSettings }) {
   return (
-    <div className="select">
-      <select
-        name="difficulty"
-        data-testid="question-difficulty-dropdown"
-        onChange={(e) => changeSettings(changeDifficulty, e.target.value)}
-      >
-        <option value="any">Any Difficulty</option>
-        <option value="easy">Easy</option>
-        <option value="medium">Medium</option>
-        <option value="hard">Hard</option>
-      </select>
-    </div>
+    <select
+      name="difficulty"
+      data-testid="question-difficulty-dropdown"
+      onChange={(e) => changeSettings(changeDifficulty, e.target.value)}
+    >
+      <option value="any">Any Difficulty</option>
+      <option value="easy">Easy</option>
+      <option value="medium">Medium</option>
+      <option value="hard">Hard</option>
+    </select>
   );
 }
 

@@ -10,12 +10,18 @@ class Settings extends Component {
   render() {
     return (
       <div className="settings-container">
-        <h1 className="title">Configurações</h1>
-        <QuestionCategory />
-        <QuestionDifficulty />
-        <QuestionType />
+        <h1 className="title">Settings</h1>
+        <div className="select">
+          <QuestionCategory />
+        </div>
+        <div className="select">
+          <QuestionDifficulty />
+        </div>
+        <div className="select">
+          <QuestionType />
+        </div>
         <Link to="/home">
-          <button type="button" className="save-settings">Aplicar Configurações</button>
+          <button type="button" className="save-settings">Apply Settings</button>
         </Link>
       </div>
     );
