@@ -15,14 +15,14 @@ class Home extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleChange(callActions, e) {
-    this.props.submitPlayerInformation(callActions, e.target.value);
-  }
-
   componentDidMount() {
     const { category, type, difficulty } = this.props;
     this.props.fetchingSomething(fetchData(category, type, difficulty));
     this.props.fetchingSomething(fetchCategories());
+  }
+
+  handleChange(callActions, e) {
+    this.props.submitPlayerInformation(callActions, e.target.value);
   }
 
   handleClick() {

@@ -16,30 +16,17 @@ class Game extends Component {
       answersOrder: [],
       currentCount: 30,
       isPaused: false,
-    }
+    };
 
     this.handleClick = this.handleClick.bind(this);
     this.timer = this.timer.bind(this);
     this.getTimeOut = this.getTimeOut.bind(this);
   }
 
-  whatLevel(difficulty) {
-    switch (difficulty) {
-      case 'hard':
-        return 3;
-      case 'medium':
-        return 2;
-      case 'easy':
-        return 1;
-      default:
-        return 0;
-    }
-  }
-
   handleClick(bool, answers, currentQuestion) {
-    const { correct_answer, difficulty } = currentQuestion;
-    answers.forEach(eachAnswer => {
-      if (eachAnswer === correct_answer) {
+    const { difficulty } = currentQuestion;
+    answers.forEach((eachAnswer) => {
+      if (eachAnswer === currentQuestion.correct_answer) {
         document.getElementById(eachAnswer).style.backgroundColor = "green";
       } else {
         document.getElementById(eachAnswer).style.backgroundColor = "red";
@@ -113,17 +100,29 @@ class Game extends Component {
     }
   }
 
+  whatLevel(difficulty) {
+    switch (difficulty) {
+      case 'hard':
+        return 3;
+      case 'medium':
+        return 2;
+      case 'easy':
+        return 1;
+      default:
+        return 0;
+    }
+  }
+
   componentDidMount() {
     const { data } = this.props;
     const { index } = this.state;
     if (data) {
       const currentQuestion = data[index];
-      const { correct_answer, incorrect_answers } = currentQuestion;
-      const answers = [...incorrect_answers];
-      answers.splice(Math.floor(Math.random() * answers.length), 0, correct_answer);
+      const answers = [...currentQuestion.incorrect_answers];
+      answers.splice(Math.floor(Math.random() * answers.length), 0, currentQuestion.correct_answer);
       this.setState({
         answersOrder: answers,
-      })
+      });
     }
     this.intervalId = setInterval(this.timer, 1000);
   }
@@ -160,9 +159,8 @@ class Game extends Component {
 }
 
 const mapStateToProps = ({
-  UserData: { name, token },
   Database: { data },
-}) => ({ name, token, data });
+}) => ({ data });
 
 
 const mapDispatchToProps = (dispatch) => ({
@@ -170,8 +168,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Game.propTypes = {
-  name: PropTypes.string.isRequired,
-  token: PropTypes.string.isRequired,
   data: PropTypes.arrayOf(PropTypes.shape({
     category: PropTypes.string.isRequired,
     correct_answer: PropTypes.string.isRequired,
@@ -184,7 +180,6 @@ Game.propTypes = {
 };
 
 Game.defaultProps = {
-  errorData: false,
   data: null,
 };
 
