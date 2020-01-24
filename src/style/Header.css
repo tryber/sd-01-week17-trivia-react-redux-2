@@ -3,7 +3,6 @@
   background-color: rgb(175, 175, 175);
   color: black;
   display: flex;
-  font-family: serif;
   height: 70px;
   justify-content: space-between;
   top: 0;
@@ -13,7 +12,6 @@
 .settings-icon {
   height: 30px;
   margin: 10px;
-  margin-left: 30px;
   width: 30px;
 }
 
