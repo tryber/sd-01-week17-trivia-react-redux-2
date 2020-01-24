@@ -261,7 +261,8 @@ Game.propTypes = {
   history: PropTypes.shape({
     action: PropTypes.string.isRequired,
     length: PropTypes.number.isRequired,
-  }),
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 Game.defaultProps = {
