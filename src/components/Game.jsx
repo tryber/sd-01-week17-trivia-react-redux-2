@@ -21,10 +21,8 @@ class Game extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.timer = this.timer.bind(this);
     this.getTimeOut = this.getTimeOut.bind(this);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.intervalId);
+    this.correctAnswer = this.correctAnswer.bind(this);
+    this.wrongAnswers = this.wrongAnswers.bind(this);
   }
 
   componentDidMount() {
@@ -41,40 +39,54 @@ class Game extends Component {
     this.intervalId = setInterval(this.timer, 1000);
   }
 
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
+
   getTimeOut() {
     this.setState({ isPaused: true });
   }
 
-  currentAnswers(currentQuestion) {
+  wrongAnswers(eachAnswer, currentQuestion) {
+    const { answersOrder } = this.state;
     const wrongAnswers = [...currentQuestion.incorrect_answers];
+    return (
+      <div key={eachAnswer}>
+        <button
+          testid={`wrong-answer-${wrongAnswers.indexOf(eachAnswer)}`}
+          onClick={() => this.handleClick(false, answersOrder, currentQuestion)}
+          key={`answer${eachAnswer}`}
+          id={`${eachAnswer}`}
+        >
+          {eachAnswer}
+        </button>
+      </div>);
+  }
+
+  correctAnswer(eachAnswer, currentQuestion) {
+    const { answersOrder } = this.state;
+    return (
+      <div key={eachAnswer}>
+        <button
+          testid="correct-awnser"
+          onClick={() => this.handleClick(true, answersOrder, currentQuestion)}
+          key={`answer${eachAnswer}`}
+          id={`${eachAnswer}`}
+        >
+          {eachAnswer}
+        </button>
+      </div>);
+  }
+
+  currentAnswers(currentQuestion) {
     const { answersOrder } = this.state;
     return (
       <div>
         {answersOrder.map((eachAnswer) => {
           if (eachAnswer === currentQuestion.correct_answer) {
-            return (
-              <div key={eachAnswer}>
-                <button
-                  testid="correct-awnser"
-                  onClick={() => this.handleClick(true, answersOrder, currentQuestion)}
-                  key={`answer${eachAnswer}`}
-                  id={`${eachAnswer}`}
-                >
-                  {eachAnswer}
-                </button>
-              </div>);
+            return this.correctAnswer(eachAnswer, currentQuestion);
           }
-          return (
-            <div key={eachAnswer}>
-              <button
-                testid={`wrong-answer-${wrongAnswers.indexOf(eachAnswer)}`}
-                onClick={() => this.handleClick(false, answersOrder, currentQuestion)}
-                key={`answer${eachAnswer}`}
-                id={`${eachAnswer}`}
-              >
-                {eachAnswer}
-              </button>
-            </div>);
+          return this.wrongAnswers(eachAnswer, currentQuestion);
         })}
       </div>
     );
