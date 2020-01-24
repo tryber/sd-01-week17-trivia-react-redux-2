@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import Trivia from './components/Trivia';
-import Home from './components/Home';
-import Settings from './components/Settings';
-import Game from './components/Game';
-import Feedback from './components/Feedback';
-import Ranking from './components/Ranking';
+import Trivia from './pages/Trivia';
+import Home from './pages/Home';
+import Settings from './pages/Settings';
+import Game from './pages/Game';
+import Feedback from './pages/Feedback';
+import Ranking from './pages/Ranking';
 import './App.css';
 
 export default function App() {

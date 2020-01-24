@@ -7,7 +7,7 @@ import md5 from 'md5-hash';
 import { fetchData, fetchCategories } from '../actions/Database';
 import { changeToken } from '../actions/UserData';
 import settingsIcon from '../img/settings-icon.png';
-import HomeInputs from './HomeInputs';
+import HomeInputs from '../components/HomeInputs';
 import '../style/Home.css';
 
 class Home extends React.Component {

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import QuestionCategory from './QuestionCategory';
-import QuestionType from './QuestionType';
-import QuestionDifficulty from './QuestionDifficulty';
+import QuestionCategory from '../components/QuestionCategory';
+import QuestionType from '../components/QuestionType';
+import QuestionDifficulty from '../components/QuestionDifficulty';
 import '../style/Settings.css';
 
 class Settings extends Component {
