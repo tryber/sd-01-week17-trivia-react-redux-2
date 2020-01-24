@@ -23,42 +23,6 @@ class Game extends Component {
     this.getTimeOut = this.getTimeOut.bind(this);
   }
 
-  currentAnswers(currentQuestion) {
-    const { correct_answer, incorrect_answers } = currentQuestion;
-    const wrongAnswers = [...incorrect_answers];
-    const { answersOrder } = this.state;
-    return (
-      <div>
-        {answersOrder.map((eachAnswer, index) => {
-          if (eachAnswer === correct_answer) {
-            return (
-              <div key={eachAnswer}>
-                <button
-                  testid="correct-awnser"
-                  onClick={() => this.handleClick(true, answersOrder, currentQuestion)}
-                  key={`answer${eachAnswer}`}
-                  id={`${eachAnswer}`}
-                >
-                  {eachAnswer}
-                </button>
-              </div>);
-          }
-          return (
-            <div key={eachAnswer}>
-              <button
-                testid={`wrong-answer-${wrongAnswers.indexOf(eachAnswer)}`}
-                onClick={() => this.handleClick(false, answersOrder, currentQuestion)}
-                key={`answer${eachAnswer}`}
-                id={`${eachAnswer}`}
-              >
-                {eachAnswer}
-              </button>
-            </div>);
-        })}
-      </div>
-    );
-  }
-
   currentQuestion(currentQuestion) {
     return (
       <div>
@@ -88,6 +52,41 @@ class Game extends Component {
 
   getTimeOut() {
     this.setState({ isPaused: true });
+  }
+
+  currentAnswers(currentQuestion) {
+    const wrongAnswers = [...currentQuestion.incorrect_answers];
+    const { answersOrder } = this.state;
+    return (
+      <div>
+        {answersOrder.map((eachAnswer) => {
+          if (eachAnswer === currentQuestion.correct_answer) {
+            return (
+              <div key={eachAnswer}>
+                <button
+                  testid="correct-awnser"
+                  onClick={() => this.handleClick(true, answersOrder, currentQuestion)}
+                  key={`answer${eachAnswer}`}
+                  id={`${eachAnswer}`}
+                >
+                  {eachAnswer}
+                </button>
+              </div>);
+          }
+          return (
+            <div key={eachAnswer}>
+              <button
+                testid={`wrong-answer-${wrongAnswers.indexOf(eachAnswer)}`}
+                onClick={() => this.handleClick(false, answersOrder, currentQuestion)}
+                key={`answer${eachAnswer}`}
+                id={`${eachAnswer}`}
+              >
+                {eachAnswer}
+              </button>
+            </div>);
+        })}
+      </div>
+    );
   }
 
   handleClick(bool, answers, currentQuestion) {
