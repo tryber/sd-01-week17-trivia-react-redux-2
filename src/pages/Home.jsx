@@ -15,6 +15,7 @@ class Home extends React.Component {
     super(props);
 
     this.getGravatarImage = this.getGravatarImage.bind(this);
+    this.renderLink = this.renderLink.bind(this);
   }
 
   componentDidMount() {
@@ -28,6 +29,26 @@ class Home extends React.Component {
     const hash = md5(email.toLowerCase());
     const src = `https://www.gravatar.com/avatar/${hash}`;
     submitPlayerInformation(changeToken, src);
+  }
+
+  renderLink() {
+    const { errorCategories, errorData } = this.props;
+    if (errorData || errorCategories) {
+      return (
+        <Link to="/">
+          <button type="button" className="play-game" onClick={() => this.getGravatarImage()}>
+            Play Game
+            </button>
+        </Link>
+      );
+    }
+    return (
+      <Link to="/game">
+        <button type="button" className="play-game" onClick={() => this.getGravatarImage()}>
+          Play Game
+          </button>
+      </Link>
+    );
   }
 
   render() {
@@ -46,11 +67,7 @@ class Home extends React.Component {
           </Link>
         </div>
         <HomeInputs />
-        <Link to="/game">
-          <button type="button" className="play-game" onClick={() => this.getGravatarImage()}>
-            Play Game
-          </button>
-        </Link>
+        {this.renderLink()}
       </div>
     );
   }
@@ -59,7 +76,8 @@ class Home extends React.Component {
 const mapStateToProps = ({
   UserData: { email },
   DataFilter: { category, type, difficulty },
-}) => ({ email, category, type, difficulty });
+  Database: { errorData, errorCategories },
+}) => ({ email, category, type, difficulty, errorCategories, errorData });
 
 const mapDispatchToProps = (dispatch) => ({
   submitPlayerInformation: (callActions, value) => dispatch(callActions(value)),
@@ -73,12 +91,16 @@ Home.propTypes = {
   type: PropTypes.string,
   fetchingSomething: PropTypes.func.isRequired,
   submitPlayerInformation: PropTypes.func.isRequired,
+  errorData: PropTypes.bool,
+  errorCategories: PropTypes.bool,
 };
 
 Home.defaultProps = {
   category: 'any',
   difficulty: 'any',
   type: 'any',
+  errorCategories: false,
+  errorData: false,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
