@@ -19,17 +19,17 @@ class Home extends React.Component {
     this.props.submitPlayerInformation(callActions, e.target.value);
   }
 
+  componentDidMount() {
+    const { category, type, difficulty } = this.props;
+    this.props.fetchingSomething(fetchData(category, type, difficulty));
+    this.props.fetchingSomething(fetchCategories());
+  }
+
   handleClick() {
     const { email } = this.props;
     const hash = md5(email.toLowerCase());
     const src = `https://www.gravatar.com/avatar/${hash}`;
     this.props.submitPlayerInformation(changeToken, src);
-  }
-
-  componentDidMount() {
-    const { category, type, difficulty } = this.props;
-    this.props.fetchingSomething(fetchData(category, type, difficulty));
-    this.props.fetchingSomething(fetchCategories());
   }
 
   render() {

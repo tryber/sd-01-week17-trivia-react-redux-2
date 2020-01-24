@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import Header from './Header';
 
 import { changePoints, changeHit } from '../actions/GameData';
@@ -161,8 +161,8 @@ class Game extends Component {
 
 const mapStateToProps = ({
   UserData: { name, token },
-  Database: { errorData, data, errorCategories },
-}) => ({ name, token, errorData, data, errorCategories });
+  Database: { data },
+}) => ({ name, token, data });
 
 
 const mapDispatchToProps = (dispatch) => ({
@@ -172,8 +172,6 @@ const mapDispatchToProps = (dispatch) => ({
 Game.propTypes = {
   name: PropTypes.string.isRequired,
   token: PropTypes.string.isRequired,
-  errorData: PropTypes.bool,
-  errorCategories: PropTypes.bool,
   data: PropTypes.arrayOf(PropTypes.shape({
     category: PropTypes.string.isRequired,
     correct_answer: PropTypes.string.isRequired,
@@ -187,7 +185,6 @@ Game.propTypes = {
 
 Game.defaultProps = {
   errorData: false,
-  errorCategories: false,
   data: null,
 };
 
