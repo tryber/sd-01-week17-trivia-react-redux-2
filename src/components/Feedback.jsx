@@ -30,7 +30,7 @@ class Feedback extends Component {
         <h3 data-testid="feedback-text">{this.verifyScore()}</h3>
         <div>
           <p data-testid="feedback-total-question">Você acertou {hit} questões!</p>
-          <p data-testid="feedback-total-scorePoints">Um total de {score} pontos</p>
+          <p data-testid="feedback-total-score">Um total de {score} pontos</p>
         </div>
         <Link to="/ranking">
           <button type="button">
