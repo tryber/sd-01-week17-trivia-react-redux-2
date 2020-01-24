@@ -23,4 +23,4 @@ class Settings extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+export default Settings;
