@@ -12,7 +12,7 @@ function QuestionCategory({ categories, changeSettings }) {
         onChange={(e) => changeSettings(changeCategory, e.target.value)}
       >
         <option key="key" value="any">Any Category</option>
-          {categories && categories.trivia_categories
+        {categories && categories.trivia_categories
             .map((categoryObject) =>
               <option key={categoryObject.name} value={categoryObject.id}>
                 {categoryObject.name}
