@@ -39,15 +39,6 @@ class Game extends Component {
     this.randomAnswers = this.randomAnswers.bind(this);
   }
 
-  randomAnswers(data, index) {
-    const currentQuestion = data[index];
-    const answers = [...currentQuestion.incorrect_answers];
-    answers.splice(Math.floor(Math.random() * answers.length), 0, currentQuestion.correct_answer);
-    this.setState({
-      answersOrder: answers,
-    });
-  }
-
   componentDidMount() {
     const { data } = this.props;
     const { index } = this.state;
@@ -63,6 +54,15 @@ class Game extends Component {
 
   getTimeOut() {
     this.setState({ isPaused: true });
+  }
+
+  randomAnswers(data, index) {
+    const currentQuestion = data[index];
+    const answers = [...currentQuestion.incorrect_answers];
+    answers.splice(Math.floor(Math.random() * answers.length), 0, currentQuestion.correct_answer);
+    this.setState({
+      answersOrder: answers,
+    });
   }
 
   wrongAnswers(eachAnswer, currentQuestion) {

@@ -44,6 +44,6 @@ Header.propTypes = {
 
 Header.defaultProps = {
   settings: false,
-}
+};
 
 export default connect(mapStateToProps)(Header);
