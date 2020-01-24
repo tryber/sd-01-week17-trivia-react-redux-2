@@ -39,18 +39,18 @@ class Home extends React.Component {
         <Link to="/settings">
           <button data-testeid="config-button" type="button">Settings</button>
         </Link>
-          <input
-            data-testeid="input-player-name"
-            type="text" id="player-name"
-            placeholder="tap your name"
-            onChange={(e) => this.handleChange(changeName, e)}
-          />
-          <input
-            data-testeid="input-gravatar-email"
-            type="email" id="player-email"
-            placeholder="Tap Your Email"
-            onChange={(e) => this.handleChange(changeEmail, e)}
-          />
+        <input
+          data-testeid="input-player-name"
+          type="text" id="player-name"
+          placeholder="tap your name"
+          onChange={(e) => this.handleChange(changeName, e)}
+        />
+        <input
+          data-testeid="input-gravatar-email"
+          type="email" id="player-email"
+          placeholder="Tap Your Email"
+          onChange={(e) => this.handleChange(changeEmail, e)}
+        />
         <Link to="/game">
           <button type="button" onClick={() => this.handleClick()}>Play</button>
         </Link>

@@ -3,12 +3,12 @@ const switchBy = (url, filter, nameFilter) => {
     case 'any':
       return url;
     default:
-      return url.concat(`&${nameFilter}=${filter}`)
+      return url.concat(`&${nameFilter}=${filter}`);
   }
-}
+};
 
 const TokenAPI = async (token, category, type, difficulty) => {
-  const baseUrl = 'https://opentdb.com/api.php?amount=5'
+  const baseUrl = 'https://opentdb.com/api.php?amount=5';
   const categoryUrl = switchBy(baseUrl, category, 'category');
   const difficultyltUrl = switchBy(categoryUrl, difficulty, 'difficulty');
   const typeUrl = switchBy(difficultyltUrl, type, 'type');

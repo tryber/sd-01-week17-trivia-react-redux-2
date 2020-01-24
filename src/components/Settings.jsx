@@ -29,11 +29,14 @@ class Settings extends Component {
           >
             <option key="key" value="any">Any Category</option>
             {categories && categories.trivia_categories
-              .map(categoryObject => <option key={categoryObject.name} value={categoryObject.id}>{categoryObject.name}</option>)}
+              .map(categoryObject =>
+                <option key={categoryObject.name} value={categoryObject.id}>{categoryObject.name}</option>
+              )}
           </select>
         </div>
         <div className="select">
-          <select name="difficulty" data-testid="question-difficulty-dropdown"
+          <select name="difficulty"
+            data-testid="question-difficulty-dropdown"
             onChange={(e) => this.handleChange(changeDifficulty, e)}
           >
             <option value="any">Any Difficulty</option>
@@ -43,7 +46,8 @@ class Settings extends Component {
           </select>
         </div>
         <div className="select">
-          <select name="type" data-testid="question-type-dropdown"
+          <select name="type"
+            data-testid="question-type-dropdown"
             onChange={(e) => this.handleChange(changeType, e)}
           >
             <option value="any">Any Type</option>
@@ -79,6 +83,6 @@ Settings.propTypes = {
 
 Settings.defaultProps = {
   categories: null,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

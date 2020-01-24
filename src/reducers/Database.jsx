@@ -35,11 +35,10 @@ const ReducerData = (state, action) => {
         isFetching: false,
         errorData: true,
       };
-      
     default:
       return null;
   }
-}
+};
 
 const ReducerCategories = (state, action) => {
   switch (action.type) {
@@ -60,11 +59,10 @@ const ReducerCategories = (state, action) => {
         isFetching: false,
         errorCategories: true,
       };
-      
     default:
       return null;
   }
-}
+};
 
 const Database = (state = initialState, action) => {
   console.log(state)
