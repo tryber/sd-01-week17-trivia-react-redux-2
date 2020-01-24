@@ -72,12 +72,13 @@ Home.propTypes = {
   difficulty: PropTypes.string,
   type: PropTypes.string,
   fetchingSomething: PropTypes.func.isRequired,
+  submitPlayerInformation: PropTypes.func.isRequired,
 };
 
 Home.defaultProps = {
   category: 'any',
   difficulty: 'any',
   type: 'any',
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
