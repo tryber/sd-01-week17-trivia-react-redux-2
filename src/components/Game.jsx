@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import Header from './Header';
 
 import { changePoints, changeHit } from '../actions/GameData';
@@ -38,6 +37,7 @@ class Game extends Component {
     this.currentQuestion = this.currentQuestion.bind(this);
     this.randomAnswers = this.randomAnswers.bind(this);
     this.timeOut = this.timeOut.bind(this);
+    this.feedBack = this.feedBack.bind(this);
   }
 
   componentDidMount() {
@@ -75,7 +75,7 @@ class Game extends Component {
           testid={`wrong-answer-${wrongAnswers.indexOf(eachAnswer)}`}
           onClick={() => this.handleClick(false, answersOrder, currentQuestion)}
           key={`answer${eachAnswer}`}
-          id={`${eachAnswer}`}
+          id={eachAnswer}
         >
           {eachAnswer}
         </button>
@@ -90,7 +90,7 @@ class Game extends Component {
           testid="correct-awnser"
           onClick={() => this.handleClick(true, answersOrder, currentQuestion)}
           key={`answer${eachAnswer}`}
-          id={`${eachAnswer}`}
+          id={eachAnswer}
         >
           {eachAnswer}
         </button>
@@ -133,6 +133,7 @@ class Game extends Component {
 
   handleClick(bool, answers, currentQuestion) {
     const { difficulty } = currentQuestion;
+    const { index } = this.state;
     answers.forEach((eachAnswer) => {
       if (eachAnswer === currentQuestion.correct_answer) {
         document.getElementById(eachAnswer).style.backgroundColor = 'green';
@@ -140,7 +141,11 @@ class Game extends Component {
         document.getElementById(eachAnswer).style.backgroundColor = 'red';
       }
       document.getElementById(eachAnswer).disabled = true;
-      document.getElementById("next-question").style.display = 'block';
+      if (index < 4) {
+        document.getElementById("next-question").style.display = 'block';
+      } else {
+        document.getElementById("feedback").style.display = 'block';
+      }
     });
     this.getTimeOut();
     if (bool) {
@@ -152,19 +157,21 @@ class Game extends Component {
     }
   }
 
-  nextQuestion() {
+  nextQuestion(e) {
     const { data } = this.props;
     if (data) {
       this.setState((state) => ({
         index: state.index + 1,
-        answersOrder:  this.randomAnswers(data, state.index + 1),
+        answersOrder: this.randomAnswers(data, state.index + 1),
         currentCount: 30,
-        isPaused: false,}));
+        isPaused: false,
+      }));
     }
+    e.target.style.display = 'none';  
   }
 
   feedBack() {
-    return <Redirect to='/' />
+    this.props.history.push(`/feedback`);
   }
 
   timeOut() {
@@ -172,15 +179,19 @@ class Game extends Component {
     const { index, answersOrder } = this.state;
     if (data) {
       const currentQuestion = data[index];
-      answersOrder.forEach((eachAnswer) => {
-        if (eachAnswer === currentQuestion.correct_answer) {
-          document.getElementById(eachAnswer).style.backgroundColor = 'green';
-        } else {
-          document.getElementById(eachAnswer).style.backgroundColor = 'red';
-        }
-        document.getElementById(eachAnswer).disabled = true;
-        document.getElementById("next-question").style.display = 'block';
-      });
+        answersOrder.forEach((eachAnswer) => {
+          if (eachAnswer === currentQuestion.correct_answer) {
+            document.getElementById(eachAnswer).style.backgroundColor = 'green';
+          } else {
+            document.getElementById(eachAnswer).style.backgroundColor = 'red';
+          }
+          document.getElementById(eachAnswer).disabled = true;
+          if (index < 4) {
+            document.getElementById("next-question").style.display = 'block';
+          } else {
+            document.getElementById("feedback").style.display = 'block';
+          }
+        });    
     }
   }
 
@@ -196,7 +207,7 @@ class Game extends Component {
   }
 
   render() {
-    const { currentCount } = this.state;
+    const { currentCount, index } = this.state;
     return (
       <div>
         <Header />
@@ -204,14 +215,25 @@ class Game extends Component {
         {this.currentAnswers()}
         {currentCount === 0 && this.timeOut()}
         <div className="timer"><p data-testid="timer">{currentCount}</p></div>
-        <button
-          onClick={() => this.nextQuestion()}
-          style={{ display: 'none' }} 
-          id="next-question"
-          type="button"
-        >
-          Next Question
+        {index < 4 ?
+          <button
+            onClick={(e) => this.nextQuestion(e)}
+            style={{ display: 'none' }}
+            id="next-question"
+            type="button"
+          >
+            Next Question
+           </button>
+          :
+          <button
+            onClick={this.feedBack}
+            style={{ display: 'none' }}
+            id="feedback"
+            type="button"
+          >
+            Feedback
             </button>
+        }
       </div>
     );
   }
