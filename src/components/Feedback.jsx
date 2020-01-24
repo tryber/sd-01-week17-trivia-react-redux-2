@@ -17,9 +17,11 @@ class Feedback extends Component {
   }
 
   updateRankingStorage() {
-    const { score, hit, name } = this.props;
-    const rankData = [name, score, hit];
-    localStorage.setItem(`Ranking - ${name}`, JSON.stringify(rankData));
+    const { score, name, token } = this.props;
+    const ranking = [];
+    const playerData = {name, score, picture: token};
+    ranking.push(...localStorage.ranking, playerData)
+    localStorage.ranking = JSON.stringify(ranking);
   }
 
   render() {
@@ -52,13 +54,12 @@ Feedback.propTypes = {
   name: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
   hit: PropTypes.number.isRequired,
+  token: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({
-  UserData: { name },
+  UserData: { name, token },
   GameData: { score, hit },
-}) => ({
-  name, score, hit,
-});
+}) => ({ name, score, hit, token });
 
 export default connect(mapStateToProps)(Feedback);
