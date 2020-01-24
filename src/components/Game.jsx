@@ -23,15 +23,6 @@ class Game extends Component {
     this.getTimeOut = this.getTimeOut.bind(this);
   }
 
-  currentQuestion(currentQuestion) {
-    return (
-      <div>
-        <h2 data-testid="question-category">{currentQuestion.category}</h2>
-        <p data-testid="question-text">{currentQuestion.question}</p>
-      </div>
-    );
-  }
-
   componentWillUnmount() {
     clearInterval(this.intervalId);
   }
@@ -85,6 +76,15 @@ class Game extends Component {
               </button>
             </div>);
         })}
+      </div>
+    );
+  }
+
+  currentQuestion(currentQuestion) {
+    return (
+      <div>
+        <h2 data-testid="question-category">{currentQuestion.category}</h2>
+        <p data-testid="question-text">{currentQuestion.question}</p>
       </div>
     );
   }
