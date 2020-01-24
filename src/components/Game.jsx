@@ -37,6 +37,7 @@ class Game extends Component {
     this.wrongAnswers = this.wrongAnswers.bind(this);
     this.currentQuestion = this.currentQuestion.bind(this);
     this.randomAnswers = this.randomAnswers.bind(this);
+    this.timeOut = this.timeOut.bind(this);
   }
 
   componentDidMount() {
@@ -150,6 +151,22 @@ class Game extends Component {
     }
   }
 
+  timeOut() {
+    const { data } = this.props;
+    const { index, answersOrder } = this.state;
+    if (data) {
+      const currentQuestion = data[index];
+      answersOrder.forEach((eachAnswer) => {
+        if (eachAnswer === currentQuestion.correct_answer) {
+          document.getElementById(eachAnswer).style.backgroundColor = 'green';
+        } else {
+          document.getElementById(eachAnswer).style.backgroundColor = 'red';
+        }
+        document.getElementById(eachAnswer).disabled = true;
+      });
+    }
+  }
+
   timer() {
     if (!this.state.isPaused) {
       this.setState({
@@ -168,6 +185,7 @@ class Game extends Component {
         <Header />
         {this.currentQuestion()}
         {this.currentAnswers()}
+        {currentCount === 0 && this.timeOut()}
         <div className="timer"><p data-testid="timer">{currentCount}</p></div>
         <div className="next-button"><button type="button">Next Question</button></div>
       </div>
