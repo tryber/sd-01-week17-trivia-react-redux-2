@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Header from './Header';
+import Header from '../components/Header';
+import '../style/Feedback.css';
 
 class Feedback extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class Feedback extends Component {
   render() {
     const { score, hit, name } = this.props;
     return (
-      <div>
+      <div className="feedback-content">
         <Header settings />
         <h3 data-testid="feedback-text">{this.verifyScore()}</h3>
         <div>

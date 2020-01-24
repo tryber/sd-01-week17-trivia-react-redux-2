@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Header from './Header';
+import Header from '../components/Header';
 
 import { changePoints, changeHit } from '../actions/GameData';
 import { whatLevel, getRandomInt } from '../services/SupportFunctions';
