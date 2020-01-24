@@ -15,6 +15,7 @@ class Home extends React.Component {
     super(props);
 
     this.getGravatarImage = this.getGravatarImage.bind(this);
+    this.renderLink = this.renderLink.bind(this);
   }
 
   componentDidMount() {
@@ -30,7 +31,26 @@ class Home extends React.Component {
     submitPlayerInformation(changeToken, src);
   }
 
+  renderLink() {
+    const { errorCategories, errorData } = this.props;
+    if (errorData || errorCategories) return (
+      <Link to="/">
+          <button type="button" className="play-game" onClick={() => this.getGravatarImage()}>
+            Play Game
+          </button>
+        </Link>
+    );
+      return (
+        <Link to="/game">
+          <button type="button" className="play-game" onClick={() => this.getGravatarImage()}>
+            Play Game
+          </button>
+        </Link>
+      );
+  }
+
   render() {
+
     return (
       <div className="App home-content">
         <div className="home-header">
@@ -46,11 +66,7 @@ class Home extends React.Component {
           </Link>
         </div>
         <HomeInputs />
-        <Link to="/game">
-          <button type="button" className="play-game" onClick={() => this.getGravatarImage()}>
-            Play Game
-          </button>
-        </Link>
+        {this.renderLink()}
       </div>
     );
   }
@@ -59,7 +75,8 @@ class Home extends React.Component {
 const mapStateToProps = ({
   UserData: { email },
   DataFilter: { category, type, difficulty },
-}) => ({ email, category, type, difficulty });
+  Database: { errorData, errorCategories }
+}) => ({ email, category, type, difficulty, errorCategories, errorData });
 
 const mapDispatchToProps = (dispatch) => ({
   submitPlayerInformation: (callActions, value) => dispatch(callActions(value)),
