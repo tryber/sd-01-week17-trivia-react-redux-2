@@ -1,6 +1,6 @@
 import React from 'react';
-import '../style/Ranking.css';
 import { Link } from 'react-router-dom';
+import '../style/Ranking.css';
 
 function Ranking() {
   const ranking = JSON.parse(localStorage.getItem('ranking'));
