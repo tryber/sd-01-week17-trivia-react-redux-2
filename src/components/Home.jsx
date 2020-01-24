@@ -33,24 +33,25 @@ class Home extends React.Component {
 
   renderLink() {
     const { errorCategories, errorData } = this.props;
-    if (errorData || errorCategories) return (
-      <Link to="/">
-          <button type="button" className="play-game" onClick={() => this.getGravatarImage()}>
-            Play Game
-          </button>
-        </Link>
-    );
+    if (errorData || errorCategories) {
       return (
-        <Link to="/game">
+        <Link to="/">
           <button type="button" className="play-game" onClick={() => this.getGravatarImage()}>
             Play Game
-          </button>
+            </button>
         </Link>
       );
+    }
+    return (
+      <Link to="/game">
+        <button type="button" className="play-game" onClick={() => this.getGravatarImage()}>
+          Play Game
+          </button>
+      </Link>
+    );
   }
 
   render() {
-
     return (
       <div className="App home-content">
         <div className="home-header">
