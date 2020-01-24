@@ -4,19 +4,7 @@ import { connect } from 'react-redux';
 import Header from './Header';
 
 import { changePoints, changeHit } from '../actions/GameData';
-
-function whatLevel(difficulty) {
-  switch (difficulty) {
-    case 'hard':
-      return 3;
-    case 'medium':
-      return 2;
-    case 'easy':
-      return 1;
-    default:
-      return 0;
-  }
-}
+import { whatLevel, getRandomInt } from '../services/SupportFunctions';
 
 class Game extends Component {
   constructor(props) {
@@ -49,6 +37,17 @@ class Game extends Component {
     this.intervalId = setInterval(this.timer, 1000);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log(prevProps);
+    const { answersOrder, index } = this.state;
+    if (prevState.index !== index) {
+      answersOrder.forEach((answers) => {
+        document.getElementById(answers).style.backgroundColor = 'grey';
+        document.getElementById(answers).disabled = false;
+      });
+    }
+  }
+
   componentWillUnmount() {
     clearInterval(this.intervalId);
   }
@@ -60,7 +59,7 @@ class Game extends Component {
   randomAnswers(data, index) {
     const currentQuestion = data[index];
     const answers = [...currentQuestion.incorrect_answers];
-    answers.splice(Math.floor(Math.random() * answers.length), 0, currentQuestion.correct_answer);
+    answers.splice(getRandomInt(0, answers.length + 1), 0, currentQuestion.correct_answer);
     this.setState({
       answersOrder: answers,
     });
@@ -242,7 +241,6 @@ class Game extends Component {
 const mapStateToProps = ({
   Database: { data },
 }) => ({ data });
-
 
 const mapDispatchToProps = (dispatch) => ({
   submitScores: (callActions, value) => dispatch(callActions(value)),
