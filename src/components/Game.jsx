@@ -36,6 +36,8 @@ class Game extends Component {
     this.wrongAnswers = this.wrongAnswers.bind(this);
     this.currentQuestion = this.currentQuestion.bind(this);
     this.randomAnswers = this.randomAnswers.bind(this);
+    this.timeOut = this.timeOut.bind(this);
+    this.feedBack = this.feedBack.bind(this);
   }
 
   componentDidMount() {
@@ -73,7 +75,7 @@ class Game extends Component {
           data-testid={`wrong-answer-${wrongAnswers.indexOf(eachAnswer)}`}
           onClick={() => this.handleClick(false, answersOrder, currentQuestion)}
           key={`answer${eachAnswer}`}
-          id={`${eachAnswer}`}
+          id={eachAnswer}
         >
           {eachAnswer}
         </button>
@@ -88,7 +90,7 @@ class Game extends Component {
           data-testid="correct-answer"
           onClick={() => this.handleClick(true, answersOrder, currentQuestion)}
           key={`answer${eachAnswer}`}
-          id={`${eachAnswer}`}
+          id={eachAnswer}
         >
           {eachAnswer}
         </button>
@@ -131,6 +133,7 @@ class Game extends Component {
 
   handleClick(bool, answers, currentQuestion) {
     const { difficulty } = currentQuestion;
+    const { index } = this.state;
     answers.forEach((eachAnswer) => {
       if (eachAnswer === currentQuestion.correct_answer) {
         document.getElementById(eachAnswer).style.backgroundColor = 'green';
@@ -138,6 +141,11 @@ class Game extends Component {
         document.getElementById(eachAnswer).style.backgroundColor = 'red';
       }
       document.getElementById(eachAnswer).disabled = true;
+      if (index < 4) {
+        document.getElementById('next-question').style.display = 'block';
+      } else {
+        document.getElementById('feedback').style.display = 'block';
+      }
     });
     this.getTimeOut();
     if (bool) {
@@ -146,6 +154,44 @@ class Game extends Component {
       const points = 10 + (currentCount * level);
       this.props.submitScores(changePoints, points);
       this.props.submitScores(changeHit, 1);
+    }
+  }
+
+  nextQuestion(e) {
+    const { data } = this.props;
+    if (data) {
+      this.setState((state) => ({
+        index: state.index + 1,
+        answersOrder: this.randomAnswers(data, state.index + 1),
+        currentCount: 30,
+        isPaused: false,
+      }));
+    }
+    e.target.style.display = 'none';
+  }
+
+  feedBack() {
+    this.props.history.push('/feedback');
+  }
+
+  timeOut() {
+    const { data } = this.props;
+    const { index, answersOrder } = this.state;
+    if (data) {
+      const currentQuestion = data[index];
+      answersOrder.forEach((eachAnswer) => {
+        if (eachAnswer === currentQuestion.correct_answer) {
+          document.getElementById(eachAnswer).style.backgroundColor = 'green';
+        } else {
+          document.getElementById(eachAnswer).style.backgroundColor = 'red';
+        }
+        document.getElementById(eachAnswer).disabled = true;
+        if (index < 4) {
+          document.getElementById('next-question').style.display = 'block';
+        } else {
+          document.getElementById('feedback').style.display = 'block';
+        }
+      });
     }
   }
 
@@ -161,14 +207,33 @@ class Game extends Component {
   }
 
   render() {
-    const { currentCount } = this.state;
+    const { currentCount, index } = this.state;
     return (
       <div>
         <Header />
         {this.currentQuestion()}
         {this.currentAnswers()}
+        {currentCount === 0 && this.timeOut()}
         <div className="timer"><p data-testid="timer">{currentCount}</p></div>
-        <div className="next-button"><button type="button">Next Question</button></div>
+        {index < 4 ?
+          <button
+            onClick={(e) => this.nextQuestion(e)}
+            style={{ display: 'none' }}
+            id="next-question"
+            type="button"
+          >
+            Next Question
+           </button>
+          :
+          <button
+            onClick={this.feedBack}
+            style={{ display: 'none' }}
+            id="feedback"
+            type="button"
+          >
+            Feedback
+            </button>
+        }
       </div>
     );
   }
@@ -193,6 +258,11 @@ Game.propTypes = {
     type: PropTypes.string.isRequired,
   })),
   submitScores: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    action: PropTypes.string.isRequired,
+    length: PropTypes.number.isRequired,
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 Game.defaultProps = {
