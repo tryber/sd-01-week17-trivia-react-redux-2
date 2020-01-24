@@ -75,7 +75,7 @@ class Home extends React.Component {
 const mapStateToProps = ({
   UserData: { email },
   DataFilter: { category, type, difficulty },
-  Database: { errorData, errorCategories }
+  Database: { errorData, errorCategories },
 }) => ({ email, category, type, difficulty, errorCategories, errorData });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -90,12 +90,16 @@ Home.propTypes = {
   type: PropTypes.string,
   fetchingSomething: PropTypes.func.isRequired,
   submitPlayerInformation: PropTypes.func.isRequired,
+  errorData: PropTypes.bool,
+  errorCategories: PropTypes.bool,
 };
 
 Home.defaultProps = {
   category: 'any',
   difficulty: 'any',
   type: 'any',
+  errorCategories: false,
+  errorData: false,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
