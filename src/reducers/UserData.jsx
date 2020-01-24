@@ -1,4 +1,4 @@
-import { CHANGE_NAME, CHANGE_EMAIL, CHANGE_TOKEN } from '../actions/ActionHome';
+import { CHANGE_NAME, CHANGE_EMAIL, CHANGE_TOKEN } from '../actions/UserData';
 
 const initialState = {
   name: '',
@@ -6,7 +6,8 @@ const initialState = {
   token: '',
 };
 
-const ReducerHome = (state = initialState, action) => {
+const UserData = (state = initialState, action) => {
+  console.log(state);
   switch (action.type) {
     case CHANGE_NAME:
       return { ...state, name: action.name };
@@ -19,4 +20,4 @@ const ReducerHome = (state = initialState, action) => {
   }
 };
 
-export default ReducerHome;
+export default UserData;
