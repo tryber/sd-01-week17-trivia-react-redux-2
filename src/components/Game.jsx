@@ -36,18 +36,23 @@ class Game extends Component {
     this.correctAnswer = this.correctAnswer.bind(this);
     this.wrongAnswers = this.wrongAnswers.bind(this);
     this.currentQuestion = this.currentQuestion.bind(this);
+    this.randomAnswers = this.randomAnswers.bind(this);
+  }
+
+  randomAnswers(data, index) {
+    const currentQuestion = data[index];
+    const answers = [...currentQuestion.incorrect_answers];
+    answers.splice(Math.floor(Math.random() * answers.length), 0, currentQuestion.correct_answer);
+    this.setState({
+      answersOrder: answers,
+    });
   }
 
   componentDidMount() {
     const { data } = this.props;
     const { index } = this.state;
     if (data) {
-      const currentQuestion = data[index];
-      const answers = [...currentQuestion.incorrect_answers];
-      answers.splice(Math.floor(Math.random() * answers.length), 0, currentQuestion.correct_answer);
-      this.setState({
-        answersOrder: answers,
-      });
+      this.randomAnswers(data, index);
     }
     this.intervalId = setInterval(this.timer, 1000);
   }

@@ -39,6 +39,11 @@ Header.propTypes = {
   name: PropTypes.string.isRequired,
   token: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
+  settings: PropTypes.bool,
 };
+
+Header.defaultProps = {
+  settings: false,
+}
 
 export default connect(mapStateToProps)(Header);
