@@ -1,56 +1,54 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { changeCategory, changeDifficulty, changeType } from '../actions/ActionSettings';
+
+import { changeCategory, changeDifficulty, changeType } from '../actions/DataFilter';
+
 import '../style/Settings.css';
 
-function handleChange(callActions, e, changeSettings) {
-  changeSettings(callActions, e.target.value);
-}
+class Settings extends Component {
+  constructor(props) {
+    super(props);
 
-function Settings({ changeSettings }) {
-  return (
-    <div className="settings-container">
-      <h1 className="title">Configurações</h1>
+    this.handleChange = this.handleChange.bind(this);
+    this.renderCategory = this.renderCategory.bind(this);
+    this.renderDifficulty = this.renderDifficulty.bind(this);
+    this.renderType = this.renderType.bind(this);
+  }
+
+  handleChange(callActions, e) {
+    this.props.changeSettings(callActions, e.target.value);
+  }
+
+  renderCategory() {
+    const { categories } = this.props;
+    return (
       <div className="select">
         <select
-          name="trivia-category"
-          onChange={(e) => handleChange(changeCategory, e, changeSettings)}
+          name="category"
           data-testid="question-category-dropdown"
+          onChange={(e) => this.handleChange(changeCategory, e)}
         >
-          <option value="any">Any Category</option>
-          <option value="9">General Knowledge</option>
-          <option value="10">Entertainment: Books</option>
-          <option value="11">Entertainment: Film</option>
-          <option value="12">Entertainment: Music</option>
-          <option value="13">Entertainment: Musicals &amp; Theatres</option>
-          <option value="14">Entertainment: Television</option>
-          <option value="15">Entertainment: Video Games</option>
-          <option value="16">Entertainment: Board Games</option>
-          <option value="17">Science &amp; Nature</option>
-          <option value="18">Science: Computers</option>
-          <option value="19">Science: Mathematics</option>
-          <option value="20">Mythology</option>
-          <option value="21">Sports</option>
-          <option value="22">Geography</option>
-          <option value="23">History</option>
-          <option value="24">Politics</option>
-          <option value="25">Art</option>
-          <option value="26">Celebrities</option>
-          <option value="27">Animals</option>
-          <option value="28">Vehicles</option>
-          <option value="29">Entertainment: Comics</option>
-          <option value="30">Science: Gadgets</option>
-          <option value="31">Entertainment: Japanese Anime &amp; Manga</option>
-          <option value="32">Entertainment: Cartoon &amp; Animations</option>
+          <option key="key" value="any">Any Category</option>
+          {categories && categories.trivia_categories
+            .map((categoryObject) =>
+              <option key={categoryObject.name} value={categoryObject.id}>
+                {categoryObject.name}
+              </option>,
+            )}
         </select>
       </div>
+    );
+  }
+
+  renderDifficulty() {
+    return (
       <div className="select">
         <select
-          name="trivia-difficulty"
-          onChange={(e) => handleChange(changeDifficulty, e, changeSettings)}
+          name="difficulty"
           data-testid="question-difficulty-dropdown"
+          onChange={(e) => this.handleChange(changeDifficulty, e)}
         >
           <option value="any">Any Difficulty</option>
           <option value="easy">Easy</option>
@@ -58,30 +56,60 @@ function Settings({ changeSettings }) {
           <option value="hard">Hard</option>
         </select>
       </div>
+    );
+  }
+
+  renderType() {
+    return (
       <div className="select">
         <select
-          name="trivia-type"
-          onChange={(e) => handleChange(changeType, e, changeSettings)}
+          name="type"
           data-testid="question-type-dropdown"
+          onChange={(e) => this.handleChange(changeType, e)}
         >
           <option value="any">Any Type</option>
           <option value="multiple">Multiple Choice</option>
           <option value="boolean">True / False</option>
         </select>
       </div>
-      <Link to="/home">
-        <button type="button" className="save-settings">Aplicar Configurações</button>
-      </Link>
-    </div>
-  );
+    );
+  }
+
+  render() {
+    return (
+      <div className="settings-container">
+        <h1 className="title">Configurações</h1>
+        {this.renderCategory()}
+        {this.renderDifficulty()}
+        {this.renderType()}
+        <Link to="/home">
+          <button type="button" className="save-settings">Aplicar Configurações</button>
+        </Link>
+      </div>
+    );
+  }
 }
 
-Settings.propTypes = {
-  changeSettings: PropTypes.func.isRequired,
-};
+const mapStateToProps = ({
+  Database: { categories },
+}) => ({ categories });
 
 const mapDispatchToProps = (dispatch) => ({
   changeSettings: (callActions, value) => dispatch(callActions(value)),
 });
 
-export default connect(null, mapDispatchToProps)(Settings);
+Settings.propTypes = {
+  categories: PropTypes.shape({
+    trivia_categories: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+    })).isRequired,
+  }),
+  changeSettings: PropTypes.func.isRequired,
+};
+
+Settings.defaultProps = {
+  categories: null,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

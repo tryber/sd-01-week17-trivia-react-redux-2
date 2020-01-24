@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import md5 from 'md5-hash';
 
-import { changeName, changeEmail, changeToken } from '../actions/ActionHome';
+import { changeName, changeEmail, changeToken } from '../actions/UserData';
+import { fetchData, fetchCategories } from '../actions/Database';
 import settingsIcon from '../img/settings-icon.png';
 import '../style/Home.css';
 
@@ -17,15 +18,21 @@ class Home extends React.Component {
     this.generateInputs = this.generateInputs.bind(this);
   }
 
-  handleChange(e, callActions) {
-    this.props.SubmitPlayerInformation(callActions, e.target.value);
+  componentDidMount() {
+    const { category, type, difficulty } = this.props;
+    this.props.fetchingSomething(fetchData(category, type, difficulty));
+    this.props.fetchingSomething(fetchCategories());
+  }
+
+  handleChange(callActions, e) {
+    this.props.submitPlayerInformation(callActions, e.target.value);
   }
 
   handleClick() {
     const { email } = this.props;
     const hash = md5(email.toLowerCase());
     const src = `https://www.gravatar.com/avatar/${hash}`;
-    this.props.SubmitPlayerInformation(changeToken, src);
+    this.props.submitPlayerInformation(changeToken, src);
   }
 
   generateInputs() {
@@ -37,7 +44,7 @@ class Home extends React.Component {
           id="player-email"
           placeholder="Email do Gravatar"
           className="home-input"
-          onChange={(e) => this.handleChange(e, changeEmail)}
+          onChange={(e) => this.handleChange(changeEmail, e)}
         />
         <label htmlFor="player-email" className="home-label">
           Email do Gravatar
@@ -48,7 +55,7 @@ class Home extends React.Component {
           id="player-name"
           placeholder="Nome do Jogador"
           className="home-input"
-          onChange={(e) => this.handleChange(e, changeName)}
+          onChange={(e) => this.handleChange(changeName, e)}
         />
         <label htmlFor="player-name" className="home-label">
           Nome do Jogador
@@ -84,16 +91,22 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = ({
-  ReducerHome: { email },
-}) => ({ email });
+  UserData: { email },
+  DataFilter: { category, type, difficulty },
+}) => ({ email, category, type, difficulty });
 
 const mapDispatchToProps = (dispatch) => ({
-  SubmitPlayerInformation: (callActions, value) => dispatch(callActions(value)),
+  submitPlayerInformation: (callActions, value) => dispatch(callActions(value)),
+  fetchingSomething: (fetchingSomething) => dispatch(fetchingSomething),
 });
 
 Home.propTypes = {
   email: PropTypes.string.isRequired,
-  SubmitPlayerInformation: PropTypes.func.isRequired,
+  category: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  difficulty: PropTypes.string.isRequired,
+  submitPlayerInformation: PropTypes.func.isRequired,
+  fetchingSomething: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
