@@ -1,6 +1,6 @@
 .header-container {
   align-items: center;
-  background-color: grey;
+  background-color: rgb(175, 175, 175);
   color: black;
   display: flex;
   height: 70px;
@@ -10,7 +10,6 @@
 }
 
 .settings-icon {
-  border-radius: 15px;
   height: 30px;
   margin: 10px;
   width: 30px;

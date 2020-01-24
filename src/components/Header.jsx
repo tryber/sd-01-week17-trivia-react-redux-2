@@ -2,13 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import settingsIcon from '../img/settings-icon.png';
 import '../style/Header.css';
 
 const settingButton = () => (
   <Link to="/Settings">
-    <button type="button" className="settings-button">
-      <img src="../img/settings-icon.png" alt="settings icon" className="settings-icon" />
-    </button>
+    <input
+      type="image"
+      src={settingsIcon}
+      className="settings-icon"
+      data-testid="config-button"
+      alt="settings button"
+    />
   </Link>
 );
 

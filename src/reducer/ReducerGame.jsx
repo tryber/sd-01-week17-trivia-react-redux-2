@@ -3,7 +3,7 @@ import { REQUEST_TOKEN, RECEIVE_TOKEN_SUCCESS, RECEIVE_TOKEN_FALIURE } from '../
 
 const initialState = {
   isFetching: false,
-  data: [],
+  data: '',
   error: '',
 };
 
@@ -24,7 +24,7 @@ const ReducerGame = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        error: true,
+        error: action.error,
       };
     default:
       return state;

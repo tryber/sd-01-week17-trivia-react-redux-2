@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Header from './Header';
 import Store from '../Store/Store';
 import DatabaseAPI from '../services/RequestAPI';
+import Header from './Header';
 
 class Game extends Component {
   componentDidMount() {

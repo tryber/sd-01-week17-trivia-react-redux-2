@@ -1,4 +1,4 @@
-import DatabaseAPI from '../services/RequestAPI';
+import TokenAPI from '../services/RequestAPI';
 
 export const REQUEST_TOKEN = 'REQUEST_TOKEN';
 export const RECEIVE_TOKEN_SUCCESS = 'RECEIVE_TOKEN_SUCESS';
@@ -20,11 +20,12 @@ const receiveTokenFailure = (error) => ({
 
 function fetchData() {
   return (dispatch) => {
-    dispatch(requestToken());
-    return DatabaseAPI()
+    dispatch(requestData());
+
+    return TokenAPI()
       .then(
-        (data) => dispatch(receiveTokenSucess(data)),
-        (error) => dispatch(receiveTokenFailure(error.message)),
+        (data) => dispatch(receiveDataSuccess(data.results)),
+        (error) => dispatch(receiveDataFailure(error.message)),
       );
   };
 }
