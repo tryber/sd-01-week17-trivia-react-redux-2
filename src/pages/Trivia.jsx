@@ -7,7 +7,7 @@ export default function Home() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <Link to="/home">Start Game</Link>
+        <Link to="/">Start Game</Link>
       </header>
     </div>
   );

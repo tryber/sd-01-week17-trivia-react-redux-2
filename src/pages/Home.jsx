@@ -15,8 +15,15 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      isName: false,
+      isEmail: false,
+    }
+
     this.getGravatarImage = this.getGravatarImage.bind(this);
     this.buttonLink = this.buttonLink.bind(this);
+    this.buttonDisable = this.buttonDisable.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -33,31 +40,60 @@ class Home extends React.Component {
     submitPlayerInformation(changeToken, src);
   }
 
+  buttonDisable() {
+    const { isName, isEmail } = this.state;
+    if (!isName || !isEmail) {
+      return (
+        <button
+          type="button"
+          data-testid="btn-play"
+          className="play-game"
+          id="btn-play"
+          disabled
+        >
+          Play Game
+        </button>
+      )
+    }
+    return (
+      <button
+        type="button"
+        data-testid="btn-play"
+        className="play-game"
+        id="btn-play"
+      >
+        Play Game
+          </button>
+    )
+
+
+  }
+
+  handleChange(e, ind) {
+    if (e !== '') {
+      if (ind === 'name') {
+        this.setState({ isName: true })
+      } else {
+        this.setState({ isEmail: true })
+      }
+    } else {
+      this.setState({ isName: false, isEmail: false })
+    }
+  }
+
   buttonLink() {
     const { errorCategories, errorData } = this.props;
+
     if (errorData || errorCategories) {
       return (
         <Link to="/">
-          <button
-            type="button"
-            data-testid="btn-play"
-            className="play-game"
-          >
-            Play Game
-            </button>
+          {this.buttonDisable()}
         </Link>
       );
     }
     return (
       <Link to="/game">
-        <button
-          type="button"
-          data-testid="btn-play"
-          className="play-game"
-          onClick={() => this.getGravatarImage()}
-        >
-          Play Game
-          </button>
+        {this.buttonDisable()}
       </Link>
     );
   }
@@ -77,7 +113,7 @@ class Home extends React.Component {
             />
           </Link>
         </div>
-        <HomeInputs />
+        <HomeInputs handleChange={this.handleChange} />
         {this.buttonLink()}
       </div>
     );
