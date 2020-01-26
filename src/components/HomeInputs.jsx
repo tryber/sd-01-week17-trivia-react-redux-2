@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { changeEmail, changeName } from '../actions/UserData';
 
-function HomeInputs({ submitPlayerInformation }) {
+function HomeInputs({ submitPlayerInformation, handleChange }) {
   return (
     <div className="home-container">
       <input
@@ -12,7 +12,10 @@ function HomeInputs({ submitPlayerInformation }) {
         id="player-email"
         placeholder="Gravatar's Email"
         className="home-input"
-        onChange={(e) => submitPlayerInformation(changeEmail, e.target.value)}
+        onChange={(e) => {
+          submitPlayerInformation(changeEmail, e.target.value);
+          handleChange(e.target.value, 'email');
+        }}
       />
       <label htmlFor="player-email" className="home-label">
         Gravatar&#39;s Email
@@ -23,7 +26,10 @@ function HomeInputs({ submitPlayerInformation }) {
         id="player-name"
         placeholder="Player's Name"
         className="home-input"
-        onChange={(e) => submitPlayerInformation(changeName, e.target.value)}
+        onChange={(e) => {
+          submitPlayerInformation(changeName, e.target.value)
+          handleChange(e.target.value, 'name');
+        }}
       />
       <label htmlFor="player-name" className="home-label">
         Player&#39;s Name

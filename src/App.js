@@ -13,8 +13,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={Trivia} />
-        <Route path="/home" component={Home} />
+        <Route exact path="/" component={Home} />
+        <Route path="/home" component={Trivia} />
         <Route path="/settings" component={Settings} />
         <Route path="/game" component={Game} />
         <Route path="/feedback" component={Feedback} />
