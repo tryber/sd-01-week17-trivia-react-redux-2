@@ -38,9 +38,10 @@ class Home extends React.Component {
       return (
         <Link to="/">
           <button
-          type="button"
-          data-testid="btn-play"
-          className="play-game">
+            type="button"
+            data-testid="btn-play"
+            className="play-game"
+          >
             Play Game
             </button>
         </Link>
@@ -49,10 +50,11 @@ class Home extends React.Component {
     return (
       <Link to="/game">
         <button
-        type="button"
-        data-testid="btn-play"
-        className="play-game"
-        onClick={() => this.getGravatarImage()}>
+          type="button"
+          data-testid="btn-play"
+          className="play-game"
+          onClick={() => this.getGravatarImage()}
+        >
           Play Game
           </button>
       </Link>
