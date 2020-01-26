@@ -7,7 +7,6 @@ const initialState = {
 };
 
 const UserData = (state = initialState, action) => {
-  console.log(state);
   switch (action.type) {
     case CHANGE_NAME:
       return { ...state, name: action.name };

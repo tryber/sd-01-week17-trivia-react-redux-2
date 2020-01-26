@@ -25,7 +25,7 @@ class Game extends Component {
     this.wrongAnswers = this.wrongAnswers.bind(this);
     this.randomAnswers = this.randomAnswers.bind(this);
     this.timeOut = this.timeOut.bind(this);
-    this.feedBack = this.feedBack.bind(this);
+    this.feedbackPage = this.feedbackPage.bind(this);
   }
 
   componentDidMount() {
@@ -39,7 +39,6 @@ class Game extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log(prevProps);
     const { answersOrder, index } = this.state;
     if (prevState.index !== index) {
       answersOrder.forEach((answers) => {
@@ -155,7 +154,7 @@ class Game extends Component {
     e.target.style.display = 'none';
   }
 
-  feedBack() {
+  feedbackPage() {
     this.props.history.push('/feedback');
   }
 
@@ -208,16 +207,16 @@ class Game extends Component {
             type="button" data-testid="btn-next"
           >
             Next Question
-           </button>
+          </button>
           :
           <button
-            onClick={this.feedBack}
+            onClick={this.feedbackPage}
             style={{ display: 'none' }}
             id="feedback"
             type="button" data-testid="btn-next"
           >
             Feedback
-            </button>
+          </button>
         }
       </div>
     );

@@ -29,6 +29,7 @@ class Home extends React.Component {
     const { email, submitPlayerInformation } = this.props;
     const hash = md5(email.toLowerCase());
     const src = `https://www.gravatar.com/avatar/${hash}`;
+    localStorage.setItem('token', src);
     submitPlayerInformation(changeToken, src);
   }
 

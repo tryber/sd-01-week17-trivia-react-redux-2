@@ -12,6 +12,17 @@ class Feedback extends Component {
     this.updateRankingStorage = this.updateRankingStorage.bind(this);
   }
 
+  componentDidMount() {
+    const { name, email, score, hit } = this.props;
+    const player = {
+      name,
+      assertions: hit,
+      score,
+      gravatarEmail: email,
+    };
+    localStorage.setItem('player', JSON.stringify(player));
+  }
+
   verifyScore() {
     if (this.props.hit >= 3) return 'Mandou bem!';
     return 'Podia ser melhor...';
@@ -53,14 +64,15 @@ class Feedback extends Component {
 
 Feedback.propTypes = {
   name: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
   hit: PropTypes.number.isRequired,
   token: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({
-  UserData: { name, token },
+  UserData: { name, email, token },
   GameData: { score, hit },
-}) => ({ name, score, hit, token });
+}) => ({ name, score, hit, email, token });
 
 export default connect(mapStateToProps)(Feedback);
