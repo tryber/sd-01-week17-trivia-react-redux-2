@@ -20,7 +20,10 @@ const TokenAPI = async (token, category, type, difficulty) => {
 export const DatabaseAPI = async (category, type, difficulty) => {
   const response = await fetch('https://opentdb.com/api_token.php?command=request');
   const ResponseToken = response.json();
-  return ResponseToken.then((data) => TokenAPI(data.token, category, type, difficulty));
+  return ResponseToken.then((data) => {
+    localStorage.setItem('token', data.token);
+    return TokenAPI(data.token, category, type, difficulty);
+  });
 };
 
 export const CategoriesAPI = async () => {

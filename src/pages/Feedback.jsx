@@ -24,8 +24,8 @@ class Feedback extends Component {
   }
 
   verifyScore() {
-    if (this.props.hit >= 3) return 'Mandou bem!';
-    return 'Podia ser melhor...';
+    if (this.props.hit >= 3) return 'Nice job!';
+    return 'Could be better...';
   }
 
   updateRankingStorage() {
@@ -51,7 +51,7 @@ class Feedback extends Component {
             See Ranking
           </button>
         </Link>
-        <Link to="/home">
+        <Link to="/">
           <button type="button">
             Play Again
           </button>

@@ -194,7 +194,7 @@ class Game extends Component {
     const { data } = this.props;
     return (
       <div>
-        {data && <Header />}
+        <Header />
         {data && <CurrentQuestion currentQuestion={data[index]} />}
         {this.currentAnswers()}
         {currentCount === 0 && this.timeOut()}
