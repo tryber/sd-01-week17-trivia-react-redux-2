@@ -25,7 +25,7 @@ class Game extends Component {
     this.wrongAnswers = this.wrongAnswers.bind(this);
     this.randomAnswers = this.randomAnswers.bind(this);
     this.timeOut = this.timeOut.bind(this);
-    this.feedBack = this.feedBack.bind(this);
+    this.feedbackPage = this.feedbackPage.bind(this);
   }
 
   componentDidMount() {
@@ -38,8 +38,7 @@ class Game extends Component {
     this.props.clearScores();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log(prevProps);
+  componentDidUpdate(prevState) {
     const { answersOrder, index } = this.state;
     if (prevState.index !== index) {
       answersOrder.forEach((answers) => {
@@ -155,8 +154,17 @@ class Game extends Component {
     e.target.style.display = 'none';
   }
 
-  feedBack() {
-    this.props.history.push('/feedback');
+  feedbackPage() {
+    const { name, email, token, score, hit, history } = this.props;
+    history.push('/feedback');
+    const player = {
+      name,
+      assertions: hit,
+      score,
+      gravatarEmail: email,
+    }
+    localStorage.setItem('player', JSON.stringify(player));
+    localStorage.setItem('token', token)
   }
 
   timeOut() {
@@ -211,7 +219,7 @@ class Game extends Component {
            </button>
           :
           <button
-            onClick={this.feedBack}
+            onClick={this.feedbackPage}
             style={{ display: 'none' }}
             id="feedback"
             type="button" data-testid="btn-next"
@@ -226,7 +234,9 @@ class Game extends Component {
 
 const mapStateToProps = ({
   Database: { data },
-}) => ({ data });
+  UserData: { name, email, token },
+  GameData: { score, hit },
+}) => ({ data, name, email, token, score, hit });
 
 const mapDispatchToProps = (dispatch) => ({
   submitScores: (callActions, value) => dispatch(callActions(value)),
@@ -249,6 +259,11 @@ Game.propTypes = {
     push: PropTypes.func.isRequired,
   }).isRequired,
   clearScores: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
+  hit: PropTypes.number.isRequired,
+  email: PropTypes.string.isRequired,
+  token: PropTypes.string.isRequired,
 };
 
 Game.defaultProps = {
