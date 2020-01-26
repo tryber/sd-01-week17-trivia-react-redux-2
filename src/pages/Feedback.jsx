@@ -13,7 +13,7 @@ class Feedback extends Component {
   }
 
   componentDidMount() {
-    const { name, email, score, hit} = this.props;
+    const { name, email, score, hit } = this.props;
     const player = {
       name,
       assertions: hit,
