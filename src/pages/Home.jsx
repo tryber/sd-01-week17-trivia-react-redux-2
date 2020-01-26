@@ -8,6 +8,7 @@ import { fetchData, fetchCategories } from '../actions/Database';
 import { changeToken } from '../actions/UserData';
 import settingsIcon from '../img/settings-icon.png';
 import HomeInputs from '../components/HomeInputs';
+
 import '../style/Home.css';
 
 class Home extends React.Component {
@@ -15,7 +16,7 @@ class Home extends React.Component {
     super(props);
 
     this.getGravatarImage = this.getGravatarImage.bind(this);
-    this.renderLink = this.renderLink.bind(this);
+    this.buttonLink = this.buttonLink.bind(this);
   }
 
   componentDidMount() {
@@ -31,12 +32,12 @@ class Home extends React.Component {
     submitPlayerInformation(changeToken, src);
   }
 
-  renderLink() {
+  buttonLink() {
     const { errorCategories, errorData } = this.props;
     if (errorData || errorCategories) {
       return (
         <Link to="/">
-          <button type="button" className="play-game" onClick={() => this.getGravatarImage()}>
+          <button type="button" className="play-game">
             Play Game
             </button>
         </Link>
@@ -67,7 +68,7 @@ class Home extends React.Component {
           </Link>
         </div>
         <HomeInputs />
-        {this.renderLink()}
+        {this.buttonLink()}
       </div>
     );
   }

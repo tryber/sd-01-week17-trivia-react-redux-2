@@ -17,7 +17,6 @@ function HomeInputs({ submitPlayerInformation }) {
       <label htmlFor="player-email" className="home-label">
         Gravatar&#39;s Email
       </label>
-
       <input
         data-testid="input-player-name"
         type="text"
