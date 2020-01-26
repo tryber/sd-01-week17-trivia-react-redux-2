@@ -38,7 +38,7 @@ class Game extends Component {
     this.props.clearScores();
   }
 
-  componentDidUpdate(prevState) {
+  componentDidUpdate(prevProps, prevState) {
     const { answersOrder, index } = this.state;
     if (prevState.index !== index) {
       answersOrder.forEach((answers) => {
@@ -155,16 +155,7 @@ class Game extends Component {
   }
 
   feedbackPage() {
-    const { name, email, token, score, hit, history } = this.props;
-    history.push('/feedback');
-    const player = {
-      name,
-      assertions: hit,
-      score,
-      gravatarEmail: email,
-    }
-    localStorage.setItem('player', JSON.stringify(player));
-    localStorage.setItem('token', token)
+    this.props.history.push('/feedback');
   }
 
   timeOut() {
@@ -216,7 +207,7 @@ class Game extends Component {
             type="button" data-testid="btn-next"
           >
             Next Question
-           </button>
+          </button>
           :
           <button
             onClick={this.feedbackPage}
@@ -225,7 +216,7 @@ class Game extends Component {
             type="button" data-testid="btn-next"
           >
             Feedback
-            </button>
+          </button>
         }
       </div>
     );
@@ -234,9 +225,7 @@ class Game extends Component {
 
 const mapStateToProps = ({
   Database: { data },
-  UserData: { name, email, token },
-  GameData: { score, hit },
-}) => ({ data, name, email, token, score, hit });
+}) => ({ data });
 
 const mapDispatchToProps = (dispatch) => ({
   submitScores: (callActions, value) => dispatch(callActions(value)),
@@ -259,11 +248,6 @@ Game.propTypes = {
     push: PropTypes.func.isRequired,
   }).isRequired,
   clearScores: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
-  score: PropTypes.number.isRequired,
-  hit: PropTypes.number.isRequired,
-  email: PropTypes.string.isRequired,
-  token: PropTypes.string.isRequired,
 };
 
 Game.defaultProps = {
