@@ -248,6 +248,7 @@ Game.propTypes = {
     length: PropTypes.number.isRequired,
     push: PropTypes.func.isRequired,
   }).isRequired,
+  clearScores: PropTypes.func.isRequired,
 };
 
 Game.defaultProps = {

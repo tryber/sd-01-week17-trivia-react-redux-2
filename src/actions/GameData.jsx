@@ -14,4 +14,4 @@ export const changeHit = (hit) => ({
 
 export const clearAll = () => ({
   type: CLEAR_ALL,
-})
+});

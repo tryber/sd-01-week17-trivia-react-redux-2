@@ -1,4 +1,5 @@
-import React, { Component }  from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class CurrentQuestion extends Component {
   render() {
@@ -11,3 +12,14 @@ export default class CurrentQuestion extends Component {
     );
   }
 }
+
+Header.propTypes = {
+  currentQuestion: PropTypes.shape({
+    category: PropTypes.string.isRequired,
+    correct_answer: PropTypes.string.isRequired,
+    difficulty: PropTypes.string.isRequired,
+    incorrect_answers: PropTypes.arrayOf(PropTypes.string.isRequired),
+    question: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+  }),
+};

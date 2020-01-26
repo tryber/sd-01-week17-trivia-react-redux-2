@@ -23,7 +23,7 @@ const GameData = (state = INITIAL_SETTINGS_STATE, action) => {
         ...state,
         hit: 0,
         score: 0,
-      }
+      };
     default:
       return state;
   }
