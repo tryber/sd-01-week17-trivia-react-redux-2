@@ -19,7 +19,7 @@ const settingButton = () => (
 
 const Header = ({ name, token, score, settings }) => (
   <div className="header-container">
-    <div className="center-bar">
+    <div className="center-bar" data-testid="header-player-name">
       <img src={token} alt="Game Player" className="player-image" />
       Player: {name}
     </div>

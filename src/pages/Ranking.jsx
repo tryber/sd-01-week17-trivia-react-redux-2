@@ -19,8 +19,8 @@ function Ranking() {
     <div className="ranking-content">
       <h1 className="title">Ranking</h1>
       {leaderboard}
-      <Link to="/feedback">
-        <button type="button">Return</button>
+      <Link to="/home">
+        <button type="button">Play Again</button>
       </Link>
     </div>
   );

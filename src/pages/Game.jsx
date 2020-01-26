@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
+import CurrentQuestion from '../components/CurrentQuestion';
 
-import { changePoints, changeHit } from '../actions/GameData';
+import { changePoints, changeHit, clearAll } from '../actions/GameData';
 import { whatLevel, getRandomInt } from '../services/SupportFunctions';
 
 class Game extends Component {
@@ -22,7 +23,6 @@ class Game extends Component {
     this.getTimeOut = this.getTimeOut.bind(this);
     this.correctAnswer = this.correctAnswer.bind(this);
     this.wrongAnswers = this.wrongAnswers.bind(this);
-    this.currentQuestion = this.currentQuestion.bind(this);
     this.randomAnswers = this.randomAnswers.bind(this);
     this.timeOut = this.timeOut.bind(this);
     this.feedBack = this.feedBack.bind(this);
@@ -35,6 +35,7 @@ class Game extends Component {
       this.randomAnswers(data, index);
     }
     this.intervalId = setInterval(this.timer, 1000);
+    this.props.clearScores();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -115,21 +116,6 @@ class Game extends Component {
     return null;
   }
 
-  currentQuestion() {
-    const { data } = this.props;
-    const { index } = this.state;
-    if (data) {
-      const currentQuestion = data[index];
-      return (
-        <div>
-          <h2 data-testid="question-category">{currentQuestion.category}</h2>
-          <p data-testid="question-text">{currentQuestion.question}</p>
-        </div>
-      );
-    }
-    return null;
-  }
-
   handleClick(bool, answers, currentQuestion) {
     const { difficulty } = currentQuestion;
     const { index } = this.state;
@@ -204,13 +190,13 @@ class Game extends Component {
       clearInterval(this.intervalId);
     }
   }
-
   render() {
     const { currentCount, index } = this.state;
+    const { data } = this.props;
     return (
       <div>
-        <Header />
-        {this.currentQuestion()}
+        {data && <Header />}
+        {data && <CurrentQuestion currentQuestion={data[index]} />}
         {this.currentAnswers()}
         {currentCount === 0 && this.timeOut()}
         <div className="timer"><p data-testid="timer">{currentCount}</p></div>
@@ -219,7 +205,7 @@ class Game extends Component {
             onClick={(e) => this.nextQuestion(e)}
             style={{ display: 'none' }}
             id="next-question"
-            type="button"
+            type="button" data-testid="btn-next"
           >
             Next Question
            </button>
@@ -228,7 +214,7 @@ class Game extends Component {
             onClick={this.feedBack}
             style={{ display: 'none' }}
             id="feedback"
-            type="button"
+            type="button" data-testid="btn-next"
           >
             Feedback
             </button>
@@ -244,6 +230,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch) => ({
   submitScores: (callActions, value) => dispatch(callActions(value)),
+  clearScores: () => dispatch(clearAll()),
 });
 
 Game.propTypes = {
@@ -261,6 +248,7 @@ Game.propTypes = {
     length: PropTypes.number.isRequired,
     push: PropTypes.func.isRequired,
   }).isRequired,
+  clearScores: PropTypes.func.isRequired,
 };
 
 Game.defaultProps = {

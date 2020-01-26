@@ -13,8 +13,8 @@ class Feedback extends Component {
   }
 
   verifyScore() {
-    if (this.props.hit >= 3) return 'Nice Job!';
-    return 'Could be better...';
+    if (this.props.hit >= 3) return 'Mandou bem!';
+    return 'Podia ser melhor...';
   }
 
   updateRankingStorage() {
