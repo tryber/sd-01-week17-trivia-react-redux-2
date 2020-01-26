@@ -205,8 +205,7 @@ class Game extends Component {
             onClick={(e) => this.nextQuestion(e)}
             style={{ display: 'none' }}
             id="next-question"
-            type="button"
-            data-testid="btn-next"
+            type="button" data-testid="btn-next"
           >
             Next Question
            </button>
@@ -215,8 +214,7 @@ class Game extends Component {
             onClick={this.feedBack}
             style={{ display: 'none' }}
             id="feedback"
-            type="button"
-            data-testid="btn-next"
+            type="button" data-testid="btn-next"
           >
             Feedback
             </button>
