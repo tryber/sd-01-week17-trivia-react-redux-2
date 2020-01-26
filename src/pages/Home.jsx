@@ -37,7 +37,7 @@ class Home extends React.Component {
     if (errorData || errorCategories) {
       return (
         <Link to="/">
-          <button type="button" className="play-game">
+          <button type="button"  data-testid="btn-play" className="play-game">
             Play Game
             </button>
         </Link>
@@ -45,7 +45,7 @@ class Home extends React.Component {
     }
     return (
       <Link to="/game">
-        <button type="button" className="play-game" onClick={() => this.getGravatarImage()}>
+        <button type="button" data-testid="btn-play" className="play-game" onClick={() => this.getGravatarImage()}>
           Play Game
           </button>
       </Link>
