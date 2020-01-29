@@ -10,23 +10,23 @@ function HomeInputs({ submitPlayerInformation }) {
         data-testid="input-gravatar-email"
         type="email"
         id="player-email"
-        placeholder="Gravatar's Email"
+        placeholder="Email do Gravatar"
         className="home-input"
         onChange={(e) => submitPlayerInformation(changeEmail, e.target.value)}
       />
       <label htmlFor="player-email" className="home-label">
-        Gravatar&#39;s Email
+        Email do Gravatar
       </label>
       <input
         data-testid="input-player-name"
         type="text"
         id="player-name"
-        placeholder="Player's Name"
+        placeholder="Nome do Jogador"
         className="home-input"
         onChange={(e) => submitPlayerInformation(changeName, e.target.value)}
       />
       <label htmlFor="player-name" className="home-label">
-        Player&#39;s Name
+        Nome do Jogador
       </label>
     </div>
   );

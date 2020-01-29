@@ -20,7 +20,7 @@ class Settings extends Component {
         <div className="select">
           <QuestionType />
         </div>
-        <Link to="/home">
+        <Link to="/">
           <button type="button" className="save-settings">Apply Settings</button>
         </Link>
       </div>

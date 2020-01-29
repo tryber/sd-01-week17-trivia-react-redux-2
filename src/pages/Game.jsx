@@ -206,7 +206,7 @@ class Game extends Component {
             id="next-question"
             type="button" data-testid="btn-next"
           >
-            Next Question
+            Próxima
           </button>
           :
           <button
