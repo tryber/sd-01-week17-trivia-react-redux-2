@@ -11,7 +11,7 @@ function Ranking() {
     <div className="ranking-player" key={player}>
       <img data-testid={`profile-picture-${position}`} src={player.picture} alt="Game Player" />
       <h4 data-testid={`${player.name}-${position}`}>{player.name}</h4>-
-      <p>{player.score} Points</p>
+      <p>{player.score} Pontos</p>
     </div>
   ));
 
@@ -20,7 +20,7 @@ function Ranking() {
       <h1 className="title">Ranking</h1>
       {leaderboard}
       <Link to="/">
-        <button type="button">Play Again</button>
+        <button type="button">Jogar Novamente</button>
       </Link>
     </div>
   );
