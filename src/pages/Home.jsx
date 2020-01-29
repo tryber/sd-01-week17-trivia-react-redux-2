@@ -11,7 +11,7 @@ import HomeInputs from '../components/HomeInputs';
 
 import '../style/Home.css';
 
-class Home extends React.Component {
+export class Home extends React.Component {
   constructor(props) {
     super(props);
 
