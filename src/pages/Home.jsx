@@ -51,7 +51,7 @@ class Home extends React.Component {
       <Link to="/game">
         <button
           type="button"
-          data-testid="header-profile-picture"
+          data-testid="btn-play"
           className="play-game"
           onClick={() => this.getGravatarImage()}
         >
