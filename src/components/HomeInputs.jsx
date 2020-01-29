@@ -27,8 +27,8 @@ function HomeInputs({ submitPlayerInformation, handleChanges }) {
         placeholder="Nome do Jogador"
         className="home-input"
         onChange={(e) => {
-          submitPlayerInformation(changeName, e.target.value)
-          handleChanges(e, 'name')
+          submitPlayerInformation(changeName, e.target.value);
+          handleChanges(e, 'name');
         }}
       />
       <label htmlFor="player-name" className="home-label">

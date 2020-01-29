@@ -18,7 +18,7 @@ export class Home extends React.Component {
     this.state = {
       isName: false,
       isEmail: false,
-    }
+    };
 
     this.getGravatarImage = this.getGravatarImage.bind(this);
     this.buttonLink = this.buttonLink.bind(this);
@@ -66,14 +66,14 @@ export class Home extends React.Component {
   }
 
   fillingFields(e, ind) {
-    if(e !== '') {
-      if(ind === 'name') {
+    if (e !== '') {
+      if (ind === 'name') {
         this.setState({ isName: true });
       } else {
         this.setState({ isEmail: true });
       }
     } else {
-      this.setState({ isEmail: false, isName: false});
+      this.setState({ isEmail: false, isName: false });
     }
   }
 
@@ -121,7 +121,7 @@ export class Home extends React.Component {
             />
           </Link>
         </div>
-        <HomeInputs handleChanges={this.fillingFields}/>
+        <HomeInputs handleChanges={this.fillingFields} />
         {this.buttonLink()}
       </div>
     );
