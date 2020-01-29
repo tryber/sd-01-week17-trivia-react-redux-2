@@ -11,12 +11,19 @@ import HomeInputs from '../components/HomeInputs';
 
 import '../style/Home.css';
 
-class Home extends React.Component {
+export class Home extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      isName: false,
+      isEmail: false,
+    };
+
     this.getGravatarImage = this.getGravatarImage.bind(this);
     this.buttonLink = this.buttonLink.bind(this);
+    this.buttonDisable = this.buttonDisable.bind(this);
+    this.fillingFields = this.fillingFields.bind(this);
   }
 
   componentDidMount() {
@@ -30,6 +37,44 @@ class Home extends React.Component {
     const hash = md5(email.toLowerCase());
     const src = `https://www.gravatar.com/avatar/${hash}`;
     submitPlayerInformation(changeToken, src);
+  }
+
+  buttonDisable() {
+    const { isEmail, isName } = this.state;
+    if (isEmail && isName) {
+      return (
+        <button
+          type="button"
+          data-testid="btn-play"
+          className="play-game"
+          onClick={() => this.getGravatarImage()}
+        >
+          Play Game
+          </button>
+      );
+    }
+    return (
+      <button
+        type="button"
+        data-testid="btn-play"
+        className="play-game"
+        disabled
+      >
+        Play Game
+        </button>
+    );
+  }
+
+  fillingFields(e, ind) {
+    if (e !== '') {
+      if (ind === 'name') {
+        this.setState({ isName: true });
+      } else {
+        this.setState({ isEmail: true });
+      }
+    } else {
+      this.setState({ isEmail: false, isName: false });
+    }
   }
 
   buttonLink() {
@@ -76,7 +121,7 @@ class Home extends React.Component {
             />
           </Link>
         </div>
-        <HomeInputs />
+        <HomeInputs handleChanges={this.fillingFields} />
         {this.buttonLink()}
       </div>
     );

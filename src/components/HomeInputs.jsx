@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { changeEmail, changeName } from '../actions/UserData';
 
-function HomeInputs({ submitPlayerInformation }) {
+function HomeInputs({ submitPlayerInformation, handleChanges }) {
   return (
     <div className="home-container">
       <input
@@ -12,7 +12,10 @@ function HomeInputs({ submitPlayerInformation }) {
         id="player-email"
         placeholder="Email do Gravatar"
         className="home-input"
-        onChange={(e) => submitPlayerInformation(changeEmail, e.target.value)}
+        onChange={(e) => {
+          submitPlayerInformation(changeEmail, e.target.value);
+          handleChanges(e, 'email');
+        }}
       />
       <label htmlFor="player-email" className="home-label">
         Email do Gravatar
@@ -23,7 +26,10 @@ function HomeInputs({ submitPlayerInformation }) {
         id="player-name"
         placeholder="Nome do Jogador"
         className="home-input"
-        onChange={(e) => submitPlayerInformation(changeName, e.target.value)}
+        onChange={(e) => {
+          submitPlayerInformation(changeName, e.target.value);
+          handleChanges(e, 'name');
+        }}
       />
       <label htmlFor="player-name" className="home-label">
         Nome do Jogador
@@ -38,6 +44,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 HomeInputs.propTypes = {
   submitPlayerInformation: PropTypes.func.isRequired,
+  handleChanges: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(HomeInputs);
