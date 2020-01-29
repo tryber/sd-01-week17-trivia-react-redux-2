@@ -42,7 +42,7 @@ class Home extends React.Component {
             data-testid="btn-play"
             className="play-game"
           >
-            Play Game
+            Jogar
           </button>
         </Link>
       );
@@ -55,7 +55,7 @@ class Home extends React.Component {
           className="play-game"
           onClick={() => this.getGravatarImage()}
         >
-          Play Game
+          Jogar
         </button>
       </Link>
     );
