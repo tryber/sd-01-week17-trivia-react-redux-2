@@ -82,9 +82,6 @@ export class Home extends React.Component {
     if (errorData || errorCategories) {
       return (
         <Link to="/">
-<<<<<<< HEAD
-          {this.buttonDisable()}
-=======
           <button
             type="button"
             data-testid="btn-play"
@@ -92,15 +89,11 @@ export class Home extends React.Component {
           >
             Jogar
           </button>
->>>>>>> master
         </Link>
       );
     }
     return (
       <Link to="/game">
-<<<<<<< HEAD
-        {this.buttonDisable()}
-=======
         <button
           type="button"
           data-testid="btn-play"
@@ -109,7 +102,6 @@ export class Home extends React.Component {
         >
           Jogar
         </button>
->>>>>>> master
       </Link>
     );
   }
